@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  windows: circleci/windows@1.0.0
+  windows-defender: circleci/windows-defender@0.0.2
+
+executors:
+  windows:
+    machine:
+      resource_class: windows.medium
+      image: windows-server-2019:201908-08
+    shell: powershell.exe -ExecutionPolicy Bypass
+
+jobs:
+  import-module:
+    executor: windows
+    steps:
+      - checkout
+      - run:
+        name: import module
+        shell: powershell.exe
+        command: |
+          cd CircleCIDSC
+          Import-Module CircleCIDSC
