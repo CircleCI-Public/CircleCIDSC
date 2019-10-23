@@ -36,17 +36,15 @@ jobs:
           name: import all modules
           shell: powershell.exe
           command: |
-            cd ..
-            mv project CircleCIDSC
-            Import-Module .\CircleCIDSC
-            Import-Module .\CircleCIDSC\DSCResources\CircleChoco
-            Import-Module .\CircleCIDSC\DSCResources\CircleCloudTools
-            Import-Module .\CircleCIDSC\DSCResources\CircleDevTools
-            Import-Module .\CircleCIDSC\DSCResources\CircleMicrosoftTools
-            Import-Module .\CircleCIDSC\DSCResources\CircleNode
-            Import-Module .\CircleCIDSC\DSCResources\CirclePath
-            Import-Module .\CircleCIDSC\DSCResources\CirclePython
-            Import-Module .\CircleCIDSC\DSCResources\CircleUsers
+            Import-Module .\CircleCIDSC.psd1
+            Import-Module .\DSCResources\CircleChoco
+            Import-Module .\DSCResources\CircleCloudTools
+            Import-Module .\DSCResources\CircleDevTools
+            Import-Module .\DSCResources\CircleMicrosoftTools
+            Import-Module .\DSCResources\CircleNode
+            Import-Module .\DSCResources\CirclePath
+            Import-Module .\DSCResources\CirclePython
+            Import-Module .\DSCResources\CircleUsers
 
 workflows:
   dsc-tests:
