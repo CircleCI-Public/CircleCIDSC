@@ -20,6 +20,7 @@ jobs:
           name: install deps
           shell: powershell.exe
           command: |
+            $ProgressPreference = "SilentlyContinue"
             Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
             Set-PSRepository -InstallationPolicy Trusted -Name PSGallery
             & mkdir 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
