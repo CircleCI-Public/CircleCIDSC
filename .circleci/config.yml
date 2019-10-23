@@ -9,7 +9,7 @@ executors:
     machine:
       resource_class: windows.medium
       image: windows-server-2019:201908-08
-    shell: powershell.exe -ExecutionPolicy Bypass
+      shell: powershell.exe -ExecutionPolicy Bypass
 
 jobs:
   import-module:
@@ -22,3 +22,8 @@ jobs:
           command: |
             cd CircleCIDSC
             Import-Module CircleCIDSC
+
+workflows:
+  dsc-tests:
+    jobs:
+      - import-module
