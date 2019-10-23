@@ -17,8 +17,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: import module
-        shell: powershell.exe
-        command: |
-          cd CircleCIDSC
-          Import-Module CircleCIDSC
+          name: import module
+          shell: powershell.exe
+          command: |
+            cd CircleCIDSC
+            Import-Module CircleCIDSC
