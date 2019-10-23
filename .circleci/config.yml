@@ -36,6 +36,7 @@ jobs:
           name: import all modules
           shell: powershell.exe
           command: |
+            cd ..
             mv project CircleCIDSC
             Import-Module .\CircleCIDSC
             Import-Module .\CircleCIDSC\DSCResources\CircleChoco
