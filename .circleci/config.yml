@@ -17,10 +17,33 @@ jobs:
     steps:
       - checkout
       - run:
-          name: import module
+        name: install deps
+        shell: powershell.exe
+        command: |
+          Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+          Set-PSRepository -InstallationPolicy Trusted -Name PSGallery
+          & mkdir 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Invoke-WebRequest -Uri 'http://github.com/chocolatey/cChoco/archive/development.zip' -OutFile 'C:\cChoco.zip'
+          Expand-Archive -LiteralPath 'C:\cChoco.zip' -DestinationPath 'C:\\'
+          Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
+          Install-Module -Name ComputerManagementDsc -Force
+          Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
+
+      - run:
+          name: import all modules
           shell: powershell.exe
           command: |
-            Import-Module CircleCIDSC
+            mv project CircleCIDSC
+            Import-Module .\CircleCIDSC
+            Import-Module .\CircleCIDSC\DSCResources\CircleChoco
+            Import-Module .\CircleCIDSC\DSCResources\CircleCloudTools
+            Import-Module .\CircleCIDSC\DSCResources\CircleDevTools
+            Import-Module .\CircleCIDSC\DSCResources\CircleMicrosoftTools
+            Import-Module .\CircleCIDSC\DSCResources\CircleNode
+            Import-Module .\CircleCIDSC\DSCResources\CirclePath
+            Import-Module .\CircleCIDSC\DSCResources\CirclePython
+            Import-Module .\CircleCIDSC\DSCResources\CircleUsers
 
 workflows:
   dsc-tests:
