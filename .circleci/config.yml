@@ -32,19 +32,19 @@ jobs:
             Install-Module -Name ComputerManagementDsc -Force
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
 
+      - run: 
+          name: grab the tests module
+          shell: powershell.exe
+          command: | 
+            cd ..
+            git clone https://github.com/PowerShell/DscResource.Tests
+            import-module .\DscResource.Tests
+            Invoke-AppveyorInstallTask
       - run:
           name: import all modules
           shell: powershell.exe
           command: |
-            Import-Module .\CircleCIDSC.psd1
-            Import-Module .\DSCResources\CircleChoco
-            Import-Module .\DSCResources\CircleCloudTools
-            Import-Module .\DSCResources\CircleDevTools
-            Import-Module .\DSCResources\CircleMicrosoftTools
-            Import-Module .\DSCResources\CircleNode
-            Import-Module .\DSCResources\CirclePath
-            Import-Module .\DSCResources\CirclePython
-            Import-Module .\DSCResources\CircleUsers
+            Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
 workflows:
   dsc-tests:
