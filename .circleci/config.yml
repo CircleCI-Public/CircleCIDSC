@@ -46,7 +46,7 @@ jobs:
           shell: powershell.exe
           command: |
             $ProgressPreference = "SilentlyContinue"
-            $env:APPVEYOR_BUILD_FOLDER="~/project"
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
