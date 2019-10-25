@@ -30,7 +30,7 @@ CompanyName = 'CircleCI'
 Copyright = ''
 
 # Description of the functionality provided by this module
-# Description = 'These DSC resources provide an environment for the circleCI windows environment. You can use them to replicate the environment locally'
+Description = 'These DSC resources provide an environment for the circleCI windows environment. You can use them to replicate the environment locally'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
