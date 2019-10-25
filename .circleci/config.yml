@@ -47,7 +47,7 @@ jobs:
           command: |
             $ProgressPreference = "SilentlyContinue"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
-            $env:APPVEYOR_REPO_NAME="CircleCIDSC"
+            $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
@@ -58,7 +58,7 @@ jobs:
             $ProgressPreference = "SilentlyContinue"
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
-            $env:APPVEYOR_REPO_NAME="CircleCIDSC"
+            $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             Invoke-AppveyorAfterTestTask
 
       - run:
@@ -67,7 +67,7 @@ jobs:
           command: |
             $gallery_api = $psgkey
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
-            $env:APPVEYOR_REPO_NAME="CircleCIDSC"
+            $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppVeyorDeployTask -OptIn @()
 
