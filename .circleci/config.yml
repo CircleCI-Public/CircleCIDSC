@@ -59,7 +59,7 @@ jobs:
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
-            $env:APPVEYOR_BUILD_VERSION=$env:CIRCLE_BUILD_NUM
+            $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Invoke-AppveyorAfterTestTask
 
       - run:
@@ -69,10 +69,11 @@ jobs:
             $gallery_api = $psgkey
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
-            $env:APPVEYOR_BUILD_VERSION=$env:CIRCLE_BUILD_NUM
+            $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Write-Output "version $env:CIRCLE_BUILD_NUM"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppVeyorDeployTask -OptIn @()
+            import-module .\CircleCIDSC
             Publish-Module -Name CircleCIDSC -NuGetApiKey $env:psgkey
 
 
