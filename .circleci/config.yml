@@ -66,6 +66,7 @@ jobs:
           name: deploy to powershell gallery
           shell: powershell.exe
           command: |
+            $ProgressPreference = "SilentlyContinue"
             $gallery_api = $psgkey
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
