@@ -60,6 +60,7 @@ jobs:
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
+            Update-ModuleManifest -DscResourcesToExport
             Invoke-AppveyorAfterTestTask -Author CircleCI -Owner CircleCI
 
       - run:
