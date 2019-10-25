@@ -37,6 +37,7 @@ jobs:
           shell: powershell.exe
           command: | 
             cd ..
+            $ProgressPreference = "SilentlyContinue"
             git clone https://github.com/PowerShell/DscResource.Tests
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorInstallTask
@@ -44,6 +45,8 @@ jobs:
           name: import all modules
           shell: powershell.exe
           command: |
+            $ProgressPreference = "SilentlyContinue"
+            $env:APPVEYOR_BUILD_FOLDER="~/project"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
