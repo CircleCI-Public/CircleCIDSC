@@ -38,12 +38,13 @@ jobs:
           command: | 
             cd ..
             git clone https://github.com/PowerShell/DscResource.Tests
-            import-module .\DscResource.Tests
+            import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorInstallTask
       - run:
           name: import all modules
           shell: powershell.exe
           command: |
+            import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
 workflows:
