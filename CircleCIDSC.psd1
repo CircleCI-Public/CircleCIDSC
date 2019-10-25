@@ -21,7 +21,7 @@ ModuleVersion = '1.0.0'
 GUID = 'eaea3e98-8085-40d7-8625-face1b9d86bf'
 
 # Author of this module
-Author = ''
+Author = 'CircleCI'
 
 # Company or vendor of this module
 CompanyName = 'CircleCI'
@@ -30,7 +30,7 @@ CompanyName = 'CircleCI'
 Copyright = ''
 
 # Description of the functionality provided by this module
-# Description = ''
+# Description = 'These DSC resources provide an environment for the circleCI windows environment. You can use them to replicate the environment locally'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
