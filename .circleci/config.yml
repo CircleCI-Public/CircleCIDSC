@@ -50,6 +50,24 @@ jobs:
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
+      - run:
+          name: after test scripts
+          shell: powershell.exe
+          command: |
+            Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
+            Invoke-AppveyorAfterTestTask
+
+      - run:
+          name: deploy to powershell gallery
+          shell: powershell.exe
+          command: |
+            $gallery_api = $psgkey
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
+            import-module ..\DscResource.Tests\AppVeyor.psm1
+            Invoke-AppVeyorDeployTask -OptIn @()
+
+
 workflows:
   dsc-tests:
     jobs:
