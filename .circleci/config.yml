@@ -73,7 +73,7 @@ jobs:
             Write-Output "version $env:CIRCLE_BUILD_NUM"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppVeyorDeployTask -OptIn @()
-            Publish-Module -Name $env:CircleCIDSC -NuGetApiKey $env:psgkey
+            Publish-Module -Name CircleCIDSC -NuGetApiKey $env:psgkey
 
 
 workflows:
