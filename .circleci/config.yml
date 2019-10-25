@@ -59,6 +59,7 @@ jobs:
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
+            $env:APPVEYOR_BUILD_VERSION=$env:CIRCLE_BUILD_NUM
             Invoke-AppveyorAfterTestTask
 
       - run:
