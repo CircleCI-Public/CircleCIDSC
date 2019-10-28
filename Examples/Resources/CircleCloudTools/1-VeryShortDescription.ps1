@@ -1,19 +1,13 @@
 <#
     .DESCRIPTION
-        This example shows how to ...
+        Install cloud tools for aws, gcp, and azure as well as servicefabric
 #>
-Configuration Example
+Configuration InstallCloudTools
 {
-    # TODO: Change 'DscResource.Template' to the correct module name.
-    Import-DscResource -ModuleName 'DscResource.Template'
+    Import-DscResource -ModuleName 'CircleCIDSC'
 
     Node $AllNodes.NodeName
     {
-        ResourceName ShortNameForResource
-        {
-            Ensure                = 'Present'
-            MandatoryParameter    = 'MyValue'
-            NonMandatoryParameter = 'OtherValue'
-        }
+        CircleCloudTools circleCloudTools { }
     }
 }

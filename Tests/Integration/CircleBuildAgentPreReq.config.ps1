@@ -45,7 +45,6 @@ Configuration CircleCIDSC_CircleBuildAgentPreReq_Basic_Config
     Import-DscResource -ModuleName 'CircleCIDSC'
     node $AllNodes.NodeName
     {
-        CircleChoco 'choco' {} # Required for this to work
         CircleBuildAgentPreReq 'Integration_Test' { }
     }
 }

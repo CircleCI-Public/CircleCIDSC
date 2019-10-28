@@ -31,10 +31,10 @@ jobs:
             Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
             Install-Module -Name ComputerManagementDsc -Force
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
-      - run: 
+      - run:
           name: grab the tests module
           shell: powershell.exe
-          command: | 
+          command: |
             cd ..
             $ProgressPreference = "SilentlyContinue"
             git clone https://github.com/PowerShell/DscResource.Tests
@@ -48,6 +48,7 @@ jobs:
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
+            $env:CONFIGURATION='integration'
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
@@ -71,10 +72,10 @@ jobs:
             Install-Module -Name ComputerManagementDsc -Force
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
 
-      - run: 
+      - run:
           name: grab the tests module
           shell: powershell.exe
-          command: | 
+          command: |
             cd ..
             $ProgressPreference = "SilentlyContinue"
             git clone https://github.com/PowerShell/DscResource.Tests

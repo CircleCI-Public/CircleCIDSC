@@ -65,8 +65,7 @@ Configuration CircleCIDSC_CircleChoco_Basic_Config
     node $AllNodes.NodeName
     {
         # TODO: Modify ResourceFriendlyName (e.g. Firewall).
-        CircleChoco 'Integration_Test'
-        { }
+        CircleChoco 'Integration_Test' { }
     }
 }
 
