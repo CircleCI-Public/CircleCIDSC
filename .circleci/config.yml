@@ -31,7 +31,6 @@ jobs:
             Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
             Install-Module -Name ComputerManagementDsc -Force
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
-
       - run: 
           name: grab the tests module
           shell: powershell.exe
@@ -52,6 +51,36 @@ jobs:
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
+  deploy-module:
+    executor: windows
+    steps:
+      - checkout
+      - run:
+          name: install deps
+          shell: powershell.exe
+          command: |
+            $ProgressPreference = "SilentlyContinue"
+            winrm quickconfig -quiet
+            Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+            Set-PSRepository -InstallationPolicy Trusted -Name PSGallery
+            & mkdir 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            Invoke-WebRequest -Uri 'http://github.com/chocolatey/cChoco/archive/development.zip' -OutFile 'C:\cChoco.zip'
+            Expand-Archive -LiteralPath 'C:\cChoco.zip' -DestinationPath 'C:\\'
+            Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
+            Install-Module -Name ComputerManagementDsc -Force
+            Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
+
+      - run: 
+          name: grab the tests module
+          shell: powershell.exe
+          command: | 
+            cd ..
+            $ProgressPreference = "SilentlyContinue"
+            git clone https://github.com/PowerShell/DscResource.Tests
+            import-module ..\DscResource.Tests\AppVeyor.psm1
+            Invoke-AppveyorInstallTask
+
       - run:
           name: after test scripts
           shell: powershell.exe
@@ -62,7 +91,6 @@ jobs:
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Invoke-AppveyorAfterTestTask -Author CircleCI -Owner CircleCI
-
       - run:
           name: deploy to powershell gallery
           shell: powershell.exe
@@ -81,7 +109,13 @@ jobs:
             Publish-Module -Name CircleCIDSC -NuGetApiKey $env:psgkey
 
 
+
+
 workflows:
   dsc-tests:
     jobs:
       - import-module
+      - deploy-module:
+        filters:
+          branches:
+            only: master
