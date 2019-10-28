@@ -12,7 +12,7 @@ executors:
       shell: powershell.exe -ExecutionPolicy Bypass
 
 jobs:
-  import-module:
+  test-module:
     executor: windows
     steps:
       - checkout
@@ -113,10 +113,13 @@ jobs:
 
 
 workflows:
+  version: 2
   dsc-tests:
     jobs:
-      - import-module
+      - test-module
       - deploy-module:
+        requires:
+          - test-module
         filters:
           branches:
             only: master
