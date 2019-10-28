@@ -17,10 +17,9 @@
         if possible.
 #>
 
-# TODO: Customize these parameters...
-$script:dscModuleName = '<ModuleName>' # TODO: Example 'NetworkingDsc'
-$script:dscResourceFriendlyName = '<ResourceFriendlyName>' # TODO: Example 'Firewall'
-$script:dscResourceName = "MSFT_$($script:dscResourceFriendlyName)" # TODO: Update prefix
+$script:dscModuleName = 'CricleCIDSC'
+$script:dscResourceFriendlyName = 'CircleBuildAgentPreReq'
+$script:dscResourceName = "CircleCIDSC_($script:dscResourceFriendlyName)"
 
 #region HEADER
 # Integration Test Template Version: 1.3.3
@@ -38,7 +37,6 @@ $TestEnvironment = Initialize-TestEnvironment `
     -TestType Integration
 #endregion
 
-# TODO: (Optional) Other init code goes here.
 
 # Using try/finally to always cleanup.
 try
@@ -52,20 +50,15 @@ try
             $resourceId = "[$($script:dscResourceFriendlyName)]Integration_Test"
         }
 
-        # TODO: Update with the correct name of the configuration.
-        $configurationName = "$($script:dscResourceName)_<ShortDescriptiveName>_Config"
+        $configurationName = "$($script:dscResourceName)_BuildAgent_Config"
 
         Context ('When using configuration {0}' -f $configurationName) {
             It 'Should compile and apply the MOF without throwing' {
                 {
-                    <#
-                        TODO: (Optional) Add any additional parameters needed
-                        for compilation of the configuration, like credentials.
-                    #>
                     $configurationParameters = @{
                         OutputPath           = $TestDrive
                         <#
-                            TODO: The variable $ConfigurationData was dot-sourced
+                            The variable $ConfigurationData was dot-sourced
                             above. (Optional) The configuration data hash table can
                             be moved into this file as appropriate, see the
                             integration_template.config.ps1 for more information.
@@ -76,7 +69,6 @@ try
                     & $configurationName @configurationParameters
 
                     $startDscConfigurationParameters = @{
-                        Path         = $TestDrive
                         ComputerName = 'localhost'
                         Wait         = $true
                         Verbose      = $true
@@ -100,7 +92,6 @@ try
                     -and $_.ResourceId -eq $resourceId
                 }
 
-                # TODO: Validate the Config was Set Correctly Here...
                 $resourceCurrentState.Ensure | Should -Be 'Present'
                 $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
@@ -108,13 +99,20 @@ try
             It 'Should return $true when Test-DscConfiguration is run' {
                 Test-DscConfiguration -Verbose | Should -Be 'True'
             }
+
+            It "Has 7zip on th path" {
+            (Get-Command -Name '7z') | Should -HaveCount 1
+            }
+            It "Has git on the path" {
+                (Get-Command -Name 'git') | Should -HaveCount 1
+            }
+            It "Has unix tools on the path" {
+                (Get-Command -Name 'xargs') | Should -HaveCount 1
+            }
+            It "Has gzip on the path" {
+                (Get-Command -Name 'gzip') | Should -HaveCount 1
+            }
         }
-
-        <#
-            TODO: (Optional) Add a new context block for the next configuration
-            that should be tested.
-        #>
-
     }
     #endregion
 
@@ -124,6 +122,4 @@ finally
     #region FOOTER
     Restore-TestEnvironment -TestEnvironment $TestEnvironment
     #endregion
-
-    # TODO: (Optional) Other cleanup code goes here.
 }
