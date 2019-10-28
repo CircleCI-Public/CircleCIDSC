@@ -48,6 +48,7 @@ jobs:
             $ProgressPreference = "SilentlyContinue"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
+            $env:APPVEYOR=$true
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
