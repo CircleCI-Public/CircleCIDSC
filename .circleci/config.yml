@@ -118,8 +118,6 @@ workflows:
     jobs:
       - test-module
       - deploy-module:
-        requires:
-          - test-module
         filters:
           branches:
             only: master
