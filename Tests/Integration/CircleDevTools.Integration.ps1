@@ -1,3 +1,4 @@
+Set-PSDebug -Trace 1
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleDevTools'
 $script:dscResourceName = "CircleCIDSC_$($script:dscResourceFriendlyName)"
