@@ -50,6 +50,7 @@ jobs:
             $env:APPVEYOR=$true
             $env:CONFIGURATION='integration'
             import-module ..\DscResource.Tests\AppVeyor.psm1
+            Set-PSDebug -Trace 1
             Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
 
   deploy-module:
