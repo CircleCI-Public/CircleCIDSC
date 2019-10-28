@@ -1,5 +1,5 @@
 Configuration CircleCloudTools {
-    Import-DscResource -ModuleName 'PackageManagement'
+    Import-DscResource -ModuleName 'PackageManagement' -ModuleVersion '1.0.0.1'
     Import-DscResource -Module cChoco
     Import-DscResource -Module CircleDscResources
     CircleChoco choco { }
