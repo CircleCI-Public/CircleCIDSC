@@ -101,7 +101,7 @@ try
             }
 
             It "Has 7zip on th path" {
-            (Get-Command -Name '7z') | Should -HaveCount 1
+                (Get-Command -Name '7z') | Should -HaveCount 1
             }
             It "Has git on the path" {
                 (Get-Command -Name 'git') | Should -HaveCount 1

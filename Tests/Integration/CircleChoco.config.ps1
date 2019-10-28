@@ -22,7 +22,6 @@ $configFile = [System.IO.Path]::ChangeExtension($MyInvocation.MyCommand.Path, 'j
 if (Test-Path -Path $configFile)
 {
     <#
-        TODO: Allows reading the configuration data from a JSON file,
         e.g. integration_template.config.json for real testing
         scenarios outside of the CI.
     #>
@@ -31,7 +30,7 @@ if (Test-Path -Path $configFile)
 else
 {
     <#
-        TODO: (Optional) If appropriate, this configuration hash table
+        If appropriate, this configuration hash table
         can be moved from here and into the integration test file.
         For example, if there are several configurations which all
         need different configuration properties, it might be easier
@@ -48,10 +47,6 @@ else
             @{
                 NodeName        = 'localhost'
                 CertificateFile = $env:DscPublicCertificatePath
-
-                # TODO: (Optional) Add configuration properties.
-                UserName        = 'MyInstallAccount'
-                Password        = 'MyP@ssw0rd!1'
             }
         )
     }
@@ -59,26 +54,19 @@ else
 
 <#
     .SYNOPSIS
-        TODO: Add a short but clear description of what this configuration does.
-        (e.g. Enables the TCP port for Remote Desktop Connection on the profile Public.)
+    Installs and configures choco in a way to works with circleci
 #>
 # TODO: Modify ResourceName and ShortDescriptiveName (e.g. MSFT_Firewall_EnableRemoteDesktopConnection_Config).
-Configuration MSFT_<ResourceName>_<ShortDescriptiveName>_Config
+Configuration CircleCIDSC_CircleChoco_Basic_Config
 {
     # TODO: Modify ModuleName (e.g. NetworkingDsc)
-    Import-DscResource -ModuleName '<ModuleName>'
+    Import-DscResource -ModuleName 'CircleCIDSC'
 
     node $AllNodes.NodeName
     {
         # TODO: Modify ResourceFriendlyName (e.g. Firewall).
-        <ResourceFriendlyName> 'Integration_Test'
-        {
-            # TODO: Add resource parameters here.
-            PsDscRunAsCredential = New-Object `
-                -TypeName System.Management.Automation.PSCredential `
-                -ArgumentList @($Node.Username, (ConvertTo-SecureString -String $Node.Password -AsPlainText -Force))
-        }
+        CircleChoco 'Integration_Test'
+        { }
     }
 }
 
-# TODO: (Optional) Add More Configuration Templates as needed.
