@@ -1,25 +1,3 @@
-[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'test', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
-param()
-
-<#
-    .SYNOPSIS
-       Template for creating DSC Resource Integration Tests
-
-    .DESCRIPTION
-        To Use:
-            1. Copy to \Tests\Integration\ folder and rename <ResourceName>.Integration.tests.ps1
-               (e.g. MSFT_Firewall.Integration.tests.ps1).
-            2. Customize TODO sections.
-            3. Remove TODO comments.
-            4. Create test DSC Configuration file <ResourceName>.config.ps1
-               (e.g. MSFT_Firewall.config.ps1) from integration_template.config.ps1 file.
-            5. Remove this comment-based help.
-
-    .NOTES
-        Code in HEADER and FOOTER regions are standard and should not be altered
-        if possible.
-#>
-
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleBuildAgentPreReq'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
