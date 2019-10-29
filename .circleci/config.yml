@@ -113,7 +113,7 @@ jobs:
             Invoke-AppVeyorDeployTask -OptIn @()
             import-module .\CircleCIDSC
             cd ..
-            cp -r project 'C:\Program Files\WindowsPowerShell\Modules\CircleCIDSC'
+            cp -r CircleCIDSC 'C:\Program Files\WindowsPowerShell\Modules\CircleCIDSC'
             Publish-Module -Name CircleCIDSC -NuGetApiKey $env:psgkey
 
 
