@@ -4,9 +4,9 @@
 
 #>
 
-$script:dscModuleName = 'CircleCIDSC' # TODO: Example 'NetworkingDsc'
-$script:dscResourceFriendlyName = 'CircleCloudTools' # TODO: Example 'Firewall'
-$script:dscResourceName = "CircleCIDSC_$($script:dscResourceFriendlyName)" # TODO: Update prefix
+$script:dscModuleName = 'CircleCIDSC'
+$script:dscResourceFriendlyName = 'CircleCloudTools'
+$script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
 #region HEADER
 # Integration Test Template Version: 1.3.3

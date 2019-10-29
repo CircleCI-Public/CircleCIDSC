@@ -5,7 +5,7 @@
 
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleChoco'
-$script:dscResourceName = "CircleCIDSC_$($script:dscResourceFriendlyName)" # TODO: Update prefix
+$script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
 #region HEADER
 # Integration Test Template Version: 1.3.3
