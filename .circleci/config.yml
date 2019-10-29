@@ -49,6 +49,7 @@ jobs:
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
             $env:CONFIGURATION='Integration'
+            $VerbosePreference = "continue"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask
 
