@@ -13,8 +13,12 @@ $ConfigurationData = @{
 Configuration CircleBuildAgentPreReq_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
+    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+
+
     node $AllNodes.NodeName
     {
+        CircleChoco 'choco' {}
         CircleBuildAgentPreReq 'Integration_Test' { }
     }
 }
