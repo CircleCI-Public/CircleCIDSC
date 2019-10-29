@@ -38,7 +38,7 @@ try
             $resourceId = "[$($script:dscResourceFriendlyName)]Integration_Test"
         }
 
-        $configurationName = "$($script:dscResourceName)_Choco_Config"
+        $configurationName = "$($script:dscResourceName)_Integration_Config"
 
         Context ('When using configuration {0}' -f $configurationName) {
             It 'Should compile and apply the MOF without throwing' {

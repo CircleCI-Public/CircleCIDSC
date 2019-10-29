@@ -22,7 +22,7 @@ param()
 
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleBuildAgentPreReq'
-$script:dscResourceName = "($script:dscResourceFriendlyName)"
+$script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
 #region HEADER
 # Integration Test Template Version: 1.3.3
@@ -53,19 +53,12 @@ try
             $resourceId = "[$($script:dscResourceFriendlyName)]Integration_Test"
         }
 
-        $configurationName = "$($script:dscResourceName)_BuildAgent_Config"
+        $configurationName = "$($script:dscResourceName)_Integration_Config"
 
         Context ('When using configuration {0}' -f $configurationName) {
             It 'Should compile and apply the MOF without throwing' {
                 {
                     $configurationParameters = @{
-                        OutputPath           = $TestDrive
-                        <#
-                            The variable $ConfigurationData was dot-sourced
-                            above. (Optional) The configuration data hash table can
-                            be moved into this file as appropriate, see the
-                            integration_template.config.ps1 for more information.
-                        #>
                         ConfigurationData    = $ConfigurationData
                     }
 

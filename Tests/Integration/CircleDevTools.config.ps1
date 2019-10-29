@@ -30,7 +30,7 @@ else
     .SYNOPSIS
     Runs the CircleDevTools DSC
 #>
-Configuration CircleCIDSC_CircleDevTools_Basic_Config
+Configuration CircleDevTools_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
 

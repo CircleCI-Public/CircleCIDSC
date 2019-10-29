@@ -27,17 +27,12 @@ else
     .SYNOPSIS
     installs a collection of tools for interactiong with clouds
 #>
-Configuration CircleCIDSC_CircleCloudTools_Basic_Config
+Configuration CircleCloudTools_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
 
     node $AllNodes.NodeName
     {
-        CircleCloudTools 'Integration_Test'
-        {
-#            PsDscRunAsCredential = New-Object `
-#                -TypeName System.Management.Automation.PSCredential `
-#                -ArgumentList @($Node.Username, (ConvertTo-SecureString -String $Node.Password -AsPlainText -Force))
-        }
+        CircleCloudTools 'Integration_Test' { }
     }
 }

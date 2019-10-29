@@ -56,7 +56,7 @@ else
     .SYNOPSIS
     Installs and configures choco in a way to works with circleci
 #>
-Configuration CircleCIDSC_CircleChoco_Basic_Config
+Configuration CircleChoco_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
 
