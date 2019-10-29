@@ -29,11 +29,10 @@ else
 #>
 Configuration CircleCIDSC_CircleCloudTools_Basic_Config
 {
-    Import-DscResource -ModuleName 'CircleCIDSC'
+    Import-DscResource -ModuleName CircleCIDSC
 
     node $AllNodes.NodeName
     {
-        CircleChoco 'choco' {}
         CircleCloudTools 'Integration_Test'
         {
 #            PsDscRunAsCredential = New-Object `

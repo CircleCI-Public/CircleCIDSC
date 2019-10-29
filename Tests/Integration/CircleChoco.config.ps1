@@ -58,7 +58,7 @@ else
 #>
 Configuration CircleCIDSC_CircleChoco_Basic_Config
 {
-    Import-DscResource -ModuleName 'CircleCIDSC'
+    Import-DscResource -ModuleName CircleCIDSC
 
     node $AllNodes.NodeName
     {
