@@ -59,6 +59,11 @@ else
 Configuration CircleChoco_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
+    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName 'PackageManagement' -ModuleVersion '1.0.0.1'
+    Import-DscResource -ModuleName 'ComputerManagementDsc'
+    Import-DscResource -ModuleName 'cChoco'
+
 
     node 'localhost'
     {
