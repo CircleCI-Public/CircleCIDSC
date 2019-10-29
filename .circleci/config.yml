@@ -8,7 +8,7 @@ executors:
   windows:
     machine:
       resource_class: windows.medium
-      image: windows-server-2019:edge
+      image: windows-server-2019:201908-08
       shell: powershell.exe -ExecutionPolicy Bypass
 
 jobs:
