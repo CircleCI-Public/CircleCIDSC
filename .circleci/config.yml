@@ -55,7 +55,7 @@ jobs:
 
             $mainModuleFolder = "Modules\$moduleName"
             $harnessModulePath = "Tests\$($moduleName).TestHarness.psm1"
-            $harnessFunctionName = "Invoke-$($moduleName)Test"
+            $harnessFunctionName = "Invoke-TestHarness"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorTestScriptTask `
                 -Type 'Harness' `
