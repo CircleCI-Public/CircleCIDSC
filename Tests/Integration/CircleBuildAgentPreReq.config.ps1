@@ -1,3 +1,5 @@
+[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'test', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
+param()
 #region HEADER
 # Integration Test Config Template Version: 1.2.1
 #endregion
