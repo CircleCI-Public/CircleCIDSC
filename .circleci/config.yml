@@ -57,7 +57,7 @@ jobs:
           command: |
             cd ..
             $ProgressPreference = "SilentlyContinue"
-            git clone https://github.com/PowerShell/DscResource.Tests
+            git clone --branch dev https://github.com/PowerShell/DscResource.Tests
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             $null = New-DscSelfSignedCertificate
