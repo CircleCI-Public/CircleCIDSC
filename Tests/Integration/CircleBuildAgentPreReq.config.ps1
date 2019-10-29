@@ -42,7 +42,7 @@ else
     .SYNOPSIS
     install git, 7zip, gzip and git-lfs. The needed tools for build agetn
 #>
-Configuration CircleBuildAgentPreReq_Integratino_Config
+Configuration CircleBuildAgentPreReq_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
     node $AllNodes.NodeName

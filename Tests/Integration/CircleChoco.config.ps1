@@ -60,7 +60,7 @@ Configuration CircleChoco_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
 
-    node $AllNodes.NodeName
+    node 'localhost'
     {
         CircleChoco 'Integration_Test' { }
     }

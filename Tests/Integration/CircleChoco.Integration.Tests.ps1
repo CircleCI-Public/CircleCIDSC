@@ -50,7 +50,6 @@ try
                     & $configurationName @configurationParameters
 
                     $startDscConfigurationParameters = @{
-                        Path         = $TestDrive
                         ComputerName = 'localhost'
                         Wait         = $true
                         Verbose      = $true
