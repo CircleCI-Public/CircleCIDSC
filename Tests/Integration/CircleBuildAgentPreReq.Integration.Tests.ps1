@@ -1,3 +1,6 @@
+[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'test', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
+param()
+
 <#
     .SYNOPSIS
        Template for creating DSC Resource Integration Tests
