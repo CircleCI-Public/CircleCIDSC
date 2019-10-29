@@ -38,6 +38,7 @@ jobs:
             cd ..
             $ProgressPreference = "SilentlyContinue"
             git clone https://github.com/PowerShell/DscResource.Tests
+            $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppveyorInstallTask
       - run:
