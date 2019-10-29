@@ -19,7 +19,7 @@
 
 $script:dscModuleName = 'CricleCIDSC'
 $script:dscResourceFriendlyName = 'CircleBuildAgentPreReq'
-$script:dscResourceName = "CircleCIDSC_($script:dscResourceFriendlyName)"
+$script:dscResourceName = "($script:dscResourceFriendlyName)"
 
 #region HEADER
 # Integration Test Template Version: 1.3.3
