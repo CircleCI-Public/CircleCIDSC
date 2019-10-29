@@ -86,7 +86,7 @@ jobs:
             $ProgressPreference = "SilentlyContinue"
             git clone https://github.com/PowerShell/DscResource.Tests
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            Invoke-AppveyorInstallTask
+            $null = New-DscSelfSignedCertificate
 
       - run:
           name: after test scripts
