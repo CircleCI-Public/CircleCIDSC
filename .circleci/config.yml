@@ -52,16 +52,8 @@ jobs:
             $env:CONFIGURATION='Integration'
             $VerbosePreference = "continue"
             $moduleName = "CircleCIDSC"
-
-            $mainModuleFolder = "Modules\$moduleName"
-            $harnessModulePath = "Tests\$($moduleName).TestHarness.psm1"
-            $harnessFunctionName = "Invoke-TestHarness"
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            Invoke-AppveyorTestScriptTask `
-                -Type 'Harness' `
-                -MainModulePath $mainModuleFolder `
-                -HarnessModulePath $harnessModulePath `
-                -HarnessFunctionName $harnessFunctionName
+            Invoke-AppveyorTestScriptTask
 
   deploy-module:
     executor: windows
