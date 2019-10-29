@@ -1,4 +1,11 @@
 Configuration CircleMicrosoftTools {
+    param (
+        # Parameterhelp description
+        [System.Boolean]
+        $InstallVS=$true
+    )
+
+
     Import-DscResource -Module cChoco
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
     CircleChoco choco { }
@@ -8,8 +15,8 @@ Configuration CircleMicrosoftTools {
         Name      = "dotnetfx"
         DependsOn = "[CircleChoco]choco"
     }
-    
- 
+
+
     cChocoPackageInstaller netcore-sdk2-2
     {
         Name      = "dotnetcore-sdk"
@@ -59,13 +66,15 @@ Configuration CircleMicrosoftTools {
         Version   = "10.1.18362.1"
         DependsOn = "[CircleChoco]choco"
     }
-    
-    cChocoPackageInstaller visualStudio
-    {
-        Name      = "visualstudio2019community"
-        Version   = "16.2.5.0"
-        Params    = "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
-        DependsOn = "[CircleChoco]choco"
+
+    if ($InstallVS) {
+        cChocoPackageInstaller visualStudio
+        {
+            Name      = "visualstudio2019community"
+            Version   = "16.2.5.0"
+            Params    = "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
+            DependsOn = "[CircleChoco]choco"
+        }
     }
 
     Registry DeveloperMode
@@ -90,7 +99,7 @@ Configuration CircleMicrosoftTools {
         ProductId = "C4903086-429C-4455-86DD-044914BBA07B"
     }
 
-    circlePath winAppDriver 
+    circlePath winAppDriver
     {
         PathItem = 'C:\Program Files (x86)\Windows Application Driver'
     }
@@ -100,7 +109,7 @@ Configuration CircleMicrosoftTools {
         PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\'
     }
 
-    cChocoPackageInstaller nuget 
+    cChocoPackageInstaller nuget
     {
         Name = 'nuget.commandline'
     }
