@@ -32,7 +32,7 @@ else
 #>
 Configuration CircleCIDSC_CircleDevTools_Basic_Config
 {
-    Import-DscResource -ModuleName 'CircleDevTools'
+    Import-DscResource -ModuleName 'CircleCIDSC'
 
     node $AllNodes.NodeName
     {

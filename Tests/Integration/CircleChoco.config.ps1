@@ -56,15 +56,12 @@ else
     .SYNOPSIS
     Installs and configures choco in a way to works with circleci
 #>
-# TODO: Modify ResourceName and ShortDescriptiveName (e.g. MSFT_Firewall_EnableRemoteDesktopConnection_Config).
 Configuration CircleCIDSC_CircleChoco_Basic_Config
 {
-    # TODO: Modify ModuleName (e.g. NetworkingDsc)
     Import-DscResource -ModuleName 'CircleCIDSC'
 
     node $AllNodes.NodeName
     {
-        # TODO: Modify ResourceFriendlyName (e.g. Firewall).
         CircleChoco 'Integration_Test' { }
     }
 }
