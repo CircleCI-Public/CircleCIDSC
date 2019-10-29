@@ -17,7 +17,7 @@
         if possible.
 #>
 
-$script:dscModuleName = 'CricleCIDSC'
+$script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleBuildAgentPreReq'
 $script:dscResourceName = "($script:dscResourceFriendlyName)"
 
@@ -31,7 +31,6 @@ if ( (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCR
 }
 
 Import-Module -Name (Join-Path -Path $script:moduleRoot -ChildPath (Join-Path -Path 'DSCResource.Tests' -ChildPath 'TestHelper.psm1')) -Force
-Set-PSDebug -Trace 1
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $script:dscModuleName `
     -DSCResourceName $script:dscResourceName `
