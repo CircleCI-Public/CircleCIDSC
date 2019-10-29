@@ -48,9 +48,9 @@ jobs:
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
-            $env:CONFIGURATION='integration'
+            $env:CONFIGURATION='Integration'
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
+            Invoke-AppveyorTestScriptTask
 
   deploy-module:
     executor: windows
