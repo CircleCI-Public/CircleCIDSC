@@ -113,6 +113,7 @@ jobs:
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
+            $moduleName = "CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Invoke-AppveyorAfterTestTask -Author CircleCI -Owner CircleCI
       - run:
@@ -125,6 +126,7 @@ jobs:
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Write-Output "version $env:CIRCLE_BUILD_NUM"
+            $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppVeyorDeployTask -OptIn @()
             import-module .\CircleCIDSC
