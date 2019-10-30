@@ -9,7 +9,7 @@ Configuration CirclePath {
 
     Script "SetPath" {
         GetScript  = {
-            $currentPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
+            $currentPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name "PATH").Path
             $path = $currentPath.split(';')
             return @{Result = $path }
         }
@@ -28,7 +28,7 @@ Configuration CirclePath {
             Write-Verbose -Message "adding $using:PathItem to path"
             $currentPath = Get-MachinePath
             $newPath = $using:PathItem + ';' + $currentPath
-            Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name Path -Value $newPath
+            Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name "Path" -Value $newPath
             foreach($level in "Machine","User") {
                 [Environment]::GetEnvironmentVariables($level).GetEnumerator() | ForEach-Object {
                     # For Path variables, append the new values, if they're not already in there

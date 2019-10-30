@@ -68,11 +68,12 @@ try
                 }
             }
 
+            Update-Paths
+
             It 'Should return $true when Test-DscConfiguration is run' {
                 Test-DscConfiguration -Verbose | Should -Be 'True'
             }
 
-            Update-Paths
 
             It "Has aws on th path" {
                 (Get-Command -Name 'aws') | Should -HaveCount 1
