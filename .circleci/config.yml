@@ -74,13 +74,15 @@ jobs:
             import-module ..\DscResource.Tests\AppVeyor.psm1
             function Add-AppveyorTest {
                   [cmdletbinding()]
-                  param ()
-                  Write-Output $args
-            }
-            function Push-TestArtifact{
-                  [cmdletbinding()]
-                  param ()
-                  Write-Output $args
+                  param ($Name, $Framework, $Filename, $Outcome, $Duration, $ErrorMessage, $ErrorStackTrace)
+                  Write-Output $Name
+                  Write-Output $Framework
+                  Write-Output $Filename
+                  Write-Output $Outcome
+                  Write-Output $Duration
+                  Write-Output $ErrorMessage
+                  Write-Output $ErrorStackTrace
+
             }
             Invoke-AppveyorTestScriptTask
 
