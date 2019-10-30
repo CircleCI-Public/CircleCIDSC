@@ -38,7 +38,7 @@ refreshenv >$null 2>&1
             $PowerShellModuleAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents\WindowsPowerShell"
             $ProfileAcl = Get-Acl $using:CircleCIProfile
 
-            return New-Object -TypeName PSCustomObject -Property @{
+            return @{
                 Result = @{
                     'psmAcl'     = $PowerShellModuleAcl;
                     'profileAcl' = $ProfileAcl
