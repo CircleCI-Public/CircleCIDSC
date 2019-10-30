@@ -67,9 +67,7 @@ Configuration CircleChoco_Integration_Config
 
     node 'localhost'
     {
-        CircleChoco 'Integration_Test' {
-            Ensure = "Present"
-         }
+        CircleChoco 'Integration_Test' { }
     }
 }
 

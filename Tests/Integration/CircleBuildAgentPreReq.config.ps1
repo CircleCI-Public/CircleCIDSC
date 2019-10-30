@@ -23,8 +23,6 @@ Configuration CircleBuildAgentPreReq_Integration_Config
     node $AllNodes.NodeName
     {
         CircleChoco 'choco' {}
-        CircleBuildAgentPreReq 'Integration_Test' {
-            Ensure = "Present"
-         }
+        CircleBuildAgentPreReq 'Integration_Test' { }
     }
 }

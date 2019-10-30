@@ -27,7 +27,6 @@ Configuration CirclePython_Integration_Config
             EnvName        = 'python3'
             Version        = '3.7'
             DefaultVersion = $true
-            Ensure = "Present"
         }
     }
 }

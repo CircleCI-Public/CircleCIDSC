@@ -18,7 +18,6 @@ Configuration CircleMicrosoftTools_Integration_Config
     {
         CircleMicrosoftTools 'Integration_Test' {
             InstallVS=$false
-            Ensure = "Present"
          }
     }
 }
