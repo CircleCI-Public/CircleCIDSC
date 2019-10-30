@@ -72,7 +72,16 @@ jobs:
             $env:CONFIGURATION='Integration'
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            function AddAppveyorTest { Write-Output $args }
+            function AddAppveyorTest {
+                  [cmdletbinding()]
+                  param ()
+                  Write-Output $args
+            }
+            function Push-TestArtifact{
+                  [cmdletbinding()]
+                  param ()
+                  Write-Output $args
+            }
             Invoke-AppveyorTestScriptTask
 
   deploy-module:
