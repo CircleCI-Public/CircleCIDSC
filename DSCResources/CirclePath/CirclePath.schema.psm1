@@ -17,11 +17,11 @@ Configuration CirclePath {
             $state = $result.split(';')
             if ($state -contains $using:PathItem) {
                 Write-Verbose -Message "$using:PathItem is present in machine path"
-                return $true
+                return $True
             }
             else {
                 Write-Verbose -Message "$using:PathItem is missing in machine path"
-                return $false
+                return $False
             }
         }
         SetScript  = {
