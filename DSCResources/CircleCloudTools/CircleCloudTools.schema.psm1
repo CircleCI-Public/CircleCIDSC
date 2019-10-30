@@ -24,10 +24,20 @@ Configuration CircleCloudTools {
         DependsOn = "[CircleChoco]choco"
     }
 
+    #register package source
+    PackageManagementSource Nuget
+    {
+        Name      = "Nuget"
+        ProviderName= "Nuget"
+        SourceUri = "https://nuget.org/api/v2/"
+        InstallationPolicy ="Trusted"
+    }
+
     PackageManagement ServiceFabric
     {
         Name            = "Microsoft.ServiceFabric"
         RequiredVersion = "6.5.664"
+        DependsOn       = "[PackageManagementSource]Nuget"
     }
 
     cChocoPackageInstaller ServiceFabricSDK
