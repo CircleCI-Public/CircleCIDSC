@@ -36,11 +36,13 @@ try
                 {
                     $configurationParameters = @{
                         ConfigurationData    = $ConfigurationData
+                        OutputPath           = $TestDrive
                     }
 
                     & $configurationName @configurationParameters
 
                     $startDscConfigurationParameters = @{
+                        Path         = $TestDrive
                         Wait         = $true
                         Verbose      = $true
                         Force        = $true

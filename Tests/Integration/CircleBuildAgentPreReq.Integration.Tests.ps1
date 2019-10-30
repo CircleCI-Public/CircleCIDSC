@@ -38,11 +38,13 @@ try
                 {
                     $configurationParameters = @{
                         ConfigurationData    = $ConfigurationData
+                        OutputPath           = $TestDrive
                     }
 
                     & $configurationName @configurationParameters
 
                     $startDscConfigurationParameters = @{
+                        Path         = $TestDrive
                         ComputerName = 'localhost'
                         Wait         = $true
                         Verbose      = $true
