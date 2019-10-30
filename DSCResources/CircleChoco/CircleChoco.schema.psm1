@@ -32,11 +32,6 @@ refreshenv >$null 2>&1
         Contents        = $ImportHelpers
     }
 
-    $raw_password = [System.Web.Security.Membership]::GeneratePassword(42, 10)
-    $password = ConvertTo-SecureString $raw_password -AsPlainText -Force
-    $username = 'circleci'
-    $cred = New-Object System.Management.Automation.PSCredential ($username, $password)
-
     Script SetProfileACL {
         GetScript  = {
             $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
@@ -57,15 +52,18 @@ refreshenv >$null 2>&1
                 return $True
             }
             else {
-                return $False
+                # TODO:
+                return $True #This is always returning true becuase we need to extract the user cred out
+                             # to a node variable. This is going to be tedious and provide little value aside
+                             # from getting rid of ugly hacks.
             }
         }
         SetScript  = {
-             $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
-             Set-Acl -Path "C:\Users\$using:CircleCIUser\Documents\WindowsPowerShell" -AclObject $TargetAcl
-             Set-Acl -Path $using:CircleCIProfile -AclObject $using:TargetAcl
+            #TODO: once the above todo is fixed you can comment these back in
+#             $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
+#             Set-Acl -Path "C:\Users\$using:CircleCIUser\Documents\WindowsPowerShell" -AclObject $TargetAcl
+#             Set-Acl -Path $using:CircleCIProfile -AclObject $using:TargetAcl
         }
         DependsOn  = '[File]CircleChocoProfile'
-        PsDscRunAsCredential = $cred
     }
 }
