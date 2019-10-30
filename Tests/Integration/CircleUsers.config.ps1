@@ -22,6 +22,8 @@ Configuration CircleUser_Integration_Config
 
     node $AllNodes.NodeName
     {
-        CircleUser 'Integration_Test' { }
+        CircleUser 'Integration_Test' {
+            Ensure = "Present"
+         }
     }
 }

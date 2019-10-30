@@ -36,6 +36,9 @@ Configuration CircleDevTools_Integration_Config
 
     node $AllNodes.NodeName
     {
-        CircleDevTools 'Integration_Test' { }
+        CircleDevTools 'Integration_Test' {
+            Esnure = "Present"
+         }
+
     }
 }

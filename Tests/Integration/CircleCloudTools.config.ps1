@@ -33,6 +33,8 @@ Configuration CircleCloudTools_Integration_Config
 
     node $AllNodes.NodeName
     {
-        CircleCloudTools 'Integration_Test' { }
+        CircleCloudTools 'Integration_Test' {
+            Ensure = "Present"
+         }
     }
 }

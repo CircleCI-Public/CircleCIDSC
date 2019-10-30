@@ -20,6 +20,7 @@ Configuration CircleNode_Integration_Config
         {
             Version = '12.11.1'
             DefaultVersion = $true
+            Ensure = "Present"
         }
     }
 }
