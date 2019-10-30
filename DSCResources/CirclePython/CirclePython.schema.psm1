@@ -13,7 +13,7 @@ Configuration CirclePython {
         [System.Boolean] $DefaultVersion = $false
     )
 
-    Import-DscResource -Module CricleCIDSC
+    Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
     CircleChoco choco { }
 

@@ -1,7 +1,7 @@
 Configuration CircleCloudTools {
     Import-DscResource -ModuleName 'PackageManagement' -ModuleVersion '1.0.0.1'
     Import-DscResource -Module cChoco
-    Import-DscResource -Mdoule CircleCIDSC
+    Import-DscResource -Module CircleCIDSC
     CircleChoco choco { }
 
     cChocoPackageInstaller awscli
