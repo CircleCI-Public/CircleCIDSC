@@ -39,13 +39,15 @@ refreshenv >$null 2>&1
             $ProfileAcl = Get-Acl $using:CircleCIProfile
 
             return New-Object -TypeName PSCustomObject -Property @{
-                'psmAcl'     = $PowerShellModuleAcl;
-                'profileAcl' = $ProfileAcl
-                'targetAcl'  = $TargetAcl
+                'Result' = @{
+                    'psmAcl'     = $PowerShellModuleAcl;
+                    'profileAcl' = $ProfileAcl
+                    'targetAcl'  = $TargetAcl
+                }
             }
         }
         TestScript = {
-            $state = [scriptblock]::Create($GetScript).Invoke()
+            $state = [scriptblock]::Create($GetScript).Invoke().Result
             If ($state.psmAcl -eq $state.targetAcl -and $state.profileAcl -eq $state.targetAcl) {
                 return $true
             }

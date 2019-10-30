@@ -39,16 +39,18 @@ Configuration CircleNode {
             }
 
             return New-Object -TypeName PSCustomObject -Property @{
-                'Result'   = $nvmVersions;
-                'Selected' = $selectedVersion
+                'Result'   = @{
+                    'Versions' =  $nvmVersions;
+                    'Selected' = $selectedVersion
+                }
             }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
-            if ($state.Result -And $state.Result.Contains($using:Version)) {
+            if ($state.Result.Versions -And $state.Result.Versions.Contains($using:Version)) {
                 Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $state.Result)
                 if ($using:DefaultVersion) {
-                    if ($state.Selected -eq $using:Version) {
+                    if ($state.Result.Selected -eq $using:Version) {
                         return $true
                         Write-Verbose -Message ('Version {0} selected' -f $state.Selected)
                     }
