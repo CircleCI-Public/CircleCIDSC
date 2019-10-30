@@ -36,7 +36,7 @@ Configuration CirclePython {
             if ($envs) {
                 $pythonVersions = $envs
             }
-            return New-Object -TypeName PSCustomObject -Property @{Result = $pythonVersions }
+            return @{Result = $pythonVersions }
         }
 
         TestScript = {

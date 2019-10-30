@@ -1,6 +1,6 @@
 Configuration CirclePath {
     [CmdletBinding()]
-    param 
+    param
     (
         #The item to add to the path
         [Parameter(Mandatory)]
@@ -10,7 +10,7 @@ Configuration CirclePath {
     Script "SetPath" {
         GetScript  = {
             $path = $(Get-MachinePath).split(';')
-            return New-Object -TypeName PSCustomObject -Property @{'Result' = $path }
+            return @{Result = $path }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke().Result

@@ -40,19 +40,19 @@ refreshenv >$null 2>&1
 
             return @{
                 Result = @{
-                    'psmAcl'     = $PowerShellModuleAcl;
-                    'profileAcl' = $ProfileAcl
-                    'targetAcl'  = $TargetAcl
+                    PsmAcl     = $PowerShellModuleAcl;
+                    ProfileAcl = $ProfileAcl
+                    TargetAcl  = $TargetAcl
                 }
             }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke().Result
-            If ($state.psmAcl -eq $state.targetAcl -and $state.profileAcl -eq $state.targetAcl) {
-                return $true
+            If ($state.PsmAcl -eq $state.TargetAcl -and $state.ProfileAcl -eq $state.targetAcl) {
+                return $True
             }
             else {
-                return $false
+                return $False
             }
         }
         SetScript  = {

@@ -38,10 +38,10 @@ Configuration CircleNode {
                 $selectedVersion = @()
             }
 
-            return New-Object -TypeName PSCustomObject -Property @{
-                'Result'   = @{
-                    'Versions' =  $nvmVersions;
-                    'Selected' = $selectedVersion
+            return @{
+                Result   = @{
+                    Versions =  $nvmVersions;
+                    Selected = $selectedVersion
                 }
             }
         }
