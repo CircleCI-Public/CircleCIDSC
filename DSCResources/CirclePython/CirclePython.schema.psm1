@@ -1,6 +1,6 @@
 Configuration CirclePython {
     [CmdletBinding()]
-    param 
+    param
     (
         # The name of this python env
         [parameter(Mandatory)]
@@ -12,7 +12,8 @@ Configuration CirclePython {
 
         [System.Boolean] $DefaultVersion = $false
     )
-    
+
+    Import-DscResource -Module CricleCIDSC
     Import-DscResource -Module cChoco
     CircleChoco choco { }
 
@@ -34,10 +35,10 @@ Configuration CirclePython {
             $pythonVersions = @()
             if ($envs) {
                 $pythonVersions = $envs
-            } 
+            }
             return New-Object -TypeName PSCustomObject -Property @{'Result' = $pythonVersions }
         }
-        
+
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
             if ($state.Result -And $state.Result.Contains($using:EnvName)) {

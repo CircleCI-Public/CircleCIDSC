@@ -6,6 +6,7 @@ Configuration CircleMicrosoftTools {
     )
 
 
+    Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
     CircleChoco choco { }

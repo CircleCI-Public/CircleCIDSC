@@ -9,9 +9,10 @@ Configuration CircleNode {
         $DefaultVersion
     )
 
+    Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
     CircleChoco choco { }
-    
+
     cChocoPackageInstaller nvm-portable
     {
         Name      = 'nvm.portable'
@@ -36,7 +37,7 @@ Configuration CircleNode {
             else {
                 $selectedVersion = @()
             }
- 
+
             return New-Object -TypeName PSCustomObject -Property @{
                 'Result'   = $nvmVersions;
                 'Selected' = $selectedVersion

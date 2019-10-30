@@ -1,6 +1,6 @@
 Configuration CircleChoco {
     Import-DscResource -Module cChoco
-    
+
     LocalConfigurationManager {
         DebugMode = 'ForceModuleImport'
     }
@@ -9,7 +9,7 @@ Configuration CircleChoco {
     {
         InstallDir = 'C:\ProgramData\Chocolatey'
     }
-    
+
     cChocoFeature allowGlobalConfirmation {
         FeatureName = 'allowGlobalConfirmation'
         DependsOn   = '[cChocoInstaller]installChoco'
