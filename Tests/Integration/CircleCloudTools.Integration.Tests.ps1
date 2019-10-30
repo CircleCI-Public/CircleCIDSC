@@ -68,6 +68,7 @@ try
                 }
             }
 
+            Import-Module ImageHelpers
             Update-Paths
 
             It 'Should return $true when Test-DscConfiguration is run' {
