@@ -72,19 +72,17 @@ try
                 Test-DscConfiguration -Verbose | Should -Be 'True'
             }
 
-            It '' {
-                It "Has aws on th path" {
-                    (Get-Command -Name 'aws') | Should -HaveCount 1
-                }
-                It "Has azure cli on the path" {
-                    (Get-Command -Name 'az') | Should -HaveCount 1
-                }
-                It "Has WebPiCmd on the path" {
-                    (Get-Command -Name 'webpicmd') | Should -HaveCount 1
-                }
-                It "Has Azure service fabric installed" {
-                    (Get-Command -Name 'gzip') | Should -HaveCount 1
-                }
+            It "Has aws on th path" {
+                (Get-Command -Name 'aws') | Should -HaveCount 1
+            }
+            It "Has azure cli on the path" {
+                (Get-Command -Name 'az') | Should -HaveCount 1
+            }
+            It "Has WebPiCmd on the path" {
+                (Get-Command -Name 'webpicmd') | Should -HaveCount 1
+            }
+            It "Has Azure service fabric installed" {
+                (Get-Command -Name 'gzip') | Should -HaveCount 1
             }
         }
     }

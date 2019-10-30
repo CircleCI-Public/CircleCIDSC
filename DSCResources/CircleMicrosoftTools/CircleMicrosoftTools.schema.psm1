@@ -89,7 +89,7 @@ Configuration CircleMicrosoftTools {
     Registry Sideloading
     {
         Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
-        ValueName =  "AllowAllTrustedApps"
+        ValueName = "AllowAllTrustedApps"
         ValueType = "DWORD"
         ValueData = "1"
     }

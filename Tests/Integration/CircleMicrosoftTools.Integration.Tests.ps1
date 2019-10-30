@@ -97,12 +97,6 @@ try
                 }
             }
 
-            Describe "Visual studio" {
-                It "is Installed and locateable" {
-                    $(& "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe") -match "displayName" | Should -Match "Visual Studio Community 2019"
-                }
-            }
-
             Describe "Developer Mode" {
                 It "is enabled" {
                     $(Get-Item "hklm:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock").GetValue("AllowDevelopmentWithoutDevLicense") | should -Eq 1
