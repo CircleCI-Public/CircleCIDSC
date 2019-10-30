@@ -1,6 +1,6 @@
-$script:dscModuleName = 'CircleCIDSC' # TODO: Example 'NetworkingDsc'
-$script:dscResourceFriendlyName = 'CircleNode' # TODO: Example 'Firewall'
-$script:dscResourceName = "$($script:dscResourceFriendlyName)" # TODO: Update prefix
+$script:dscModuleName = 'CircleCIDSC'
+$script:dscResourceFriendlyName = 'CircleNode'
+$script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
 #region HEADER
 # Integration Test Template Version: 1.3.3
@@ -30,7 +30,6 @@ try
             $resourceId = "[$($script:dscResourceFriendlyName)]Integration_Test"
         }
 
-        # TODO: Update with the correct name of the configuration.
         $configurationName = "$($script:dscResourceName)_Integration_Config"
 
         Context ('When using configuration {0}' -f $configurationName) {

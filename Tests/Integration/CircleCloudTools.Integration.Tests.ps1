@@ -1,9 +1,3 @@
-<#
-    .SYNOPSIS
-       Template for creating DSC Resource Integration Tests
-
-#>
-
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleCloudTools'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"

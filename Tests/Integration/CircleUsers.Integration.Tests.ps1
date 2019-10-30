@@ -1,4 +1,6 @@
 [Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
+param()
+
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleUser'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"

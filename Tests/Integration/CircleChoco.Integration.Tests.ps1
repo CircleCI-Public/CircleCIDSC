@@ -1,9 +1,5 @@
-[Microsoft.DscResourceKit.IntegrationTest(OrderNumber = 1, ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
+[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
 param()
-<#
-    .SYNOPSIS
-       Integration test for CircleChoco module
-#>
 
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleChoco'
