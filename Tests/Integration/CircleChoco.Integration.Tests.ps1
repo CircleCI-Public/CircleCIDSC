@@ -1,6 +1,9 @@
 [Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
 param()
 
+
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleChoco'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
@@ -22,7 +25,6 @@ $TestEnvironment = Initialize-TestEnvironment `
     -TestType Integration
 #endregion
 
-# TODO: (Optional) Other init code goes here.
 
 # Using try/finally to always cleanup.
 try
@@ -73,6 +75,8 @@ try
                     -and $_.ResourceId -eq $resourceId
                 }
             }
+
+            Update-Paths
 
             It 'Should return $true when Test-DscConfiguration is run' {
                 Test-DscConfiguration -Verbose | Should -Be 'True'

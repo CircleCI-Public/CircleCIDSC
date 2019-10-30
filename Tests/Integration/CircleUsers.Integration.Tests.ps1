@@ -1,6 +1,8 @@
 [Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
 param()
 
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleUser'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
@@ -71,6 +73,7 @@ try
                     -and $_.ResourceId -eq $resourceId
                 }
             }
+            Update-Paths
 
             It 'Should return $true when Test-DscConfiguration is run' {
                 Test-DscConfiguration -Verbose | Should -Be 'True'

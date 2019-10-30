@@ -1,6 +1,8 @@
 [Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
 param()
 
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CirclePython'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
@@ -71,6 +73,8 @@ try
                     -and $_.ResourceId -eq $resourceId
                 }
             }
+
+            Update-Paths
 
             It "conda is present and on the path" {
                 $(Get-Command -Name "conda")

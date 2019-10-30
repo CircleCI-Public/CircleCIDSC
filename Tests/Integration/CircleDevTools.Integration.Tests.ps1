@@ -2,6 +2,9 @@ $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleDevTools'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
+
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
 #region HEADER
 # Integration Test Template Version: 1.3.3
 [String] $script:moduleRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
@@ -68,7 +71,6 @@ try
                 }
             }
 
-            Import-Module ImageHelpers
             Update-Paths
 
             It 'Should return $true when Test-DscConfiguration is run' {

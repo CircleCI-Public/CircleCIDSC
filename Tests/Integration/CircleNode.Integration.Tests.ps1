@@ -2,6 +2,8 @@ $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleNode'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
 #region HEADER
 # Integration Test Template Version: 1.3.3
 [String] $script:moduleRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
@@ -69,6 +71,7 @@ try
 
                 $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
+            Update-Paths
             Describe "NVM" {
                 It "is installed" {
                     $(Get-Command -Name "nvm").Count | Should -Eq 1
