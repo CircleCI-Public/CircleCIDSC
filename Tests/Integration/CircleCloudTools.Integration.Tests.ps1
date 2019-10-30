@@ -72,6 +72,8 @@ try
                 Test-DscConfiguration -Verbose | Should -Be 'True'
             }
 
+            Update-Paths
+
             It "Has aws on th path" {
                 (Get-Command -Name 'aws') | Should -HaveCount 1
             }
