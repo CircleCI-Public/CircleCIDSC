@@ -72,7 +72,7 @@ jobs:
             $env:CONFIGURATION='Integration'
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            function AddAppveyorTest {
+            function Add-AppveyorTest {
                   [cmdletbinding()]
                   param ()
                   Write-Output $args
