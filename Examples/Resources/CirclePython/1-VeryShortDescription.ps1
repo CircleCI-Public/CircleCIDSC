@@ -1,19 +1,18 @@
 <#
     .DESCRIPTION
-        This example shows how to ...
+        Install python 3.7 using conda and set it to default
 #>
 Configuration Example
 {
-    # TODO: Change 'DscResource.Template' to the correct module name.
-    Import-DscResource -ModuleName 'DscResource.Template'
+    Import-DscResource -ModuleName 'CircleCIDSC'
 
-    Node $AllNodes.NodeName
+    node $AllNodes.NodeName
     {
-        ResourceName ShortNameForResource
+        CirclePython 'Python3.7'
         {
-            Ensure                = 'Present'
-            MandatoryParameter    = 'MyValue'
-            NonMandatoryParameter = 'OtherValue'
+            EnvName        = 'python3'
+            Version        = '3.7'
+            DefaultVersion = $true
         }
     }
 }

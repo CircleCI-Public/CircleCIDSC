@@ -20,7 +20,7 @@ Configuration CircleUser_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
 
-    node $AllNodes.NodeName
+    Node $AllNodes.NodeName
     {
         CircleUser 'Integration_Test' { }
     }
