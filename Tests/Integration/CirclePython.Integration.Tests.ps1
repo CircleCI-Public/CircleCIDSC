@@ -1,3 +1,4 @@
+[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CirclePython'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
@@ -31,7 +32,6 @@ try
             $resourceId = "[$($script:dscResourceFriendlyName)]Integration_Test"
         }
 
-        # TODO: Update with the correct name of the configuration.
         $configurationName = "$($script:dscResourceName)_Integration_Config"
 
         Context ('When using configuration {0}' -f $configurationName) {
@@ -66,9 +66,6 @@ try
                     $_.ConfigurationName -eq $configurationName `
                     -and $_.ResourceId -eq $resourceId
                 }
-
-                $resourceCurrentState.Ensure | Should -Be 'Present'
-                $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
 
             It "conda is present and on the path" {

@@ -69,9 +69,6 @@ try
                     $_.ConfigurationName -eq $configurationName `
                     -and $_.ResourceId -eq $resourceId
                 }
-
-                $resourceCurrentState.Ensure | Should -Be 'Present'
-                $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
 
             It 'Should return $true when Test-DscConfiguration is run' {

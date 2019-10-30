@@ -62,10 +62,6 @@ try
                     $_.ConfigurationName -eq $configurationName `
                     -and $_.ResourceId -eq $resourceId
                 }
-
-                # TODO: Validate the Config was Set Correctly Here...
-                $resourceCurrentState.Ensure | Should -Be 'Present'
-                $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
 
             It 'Should return $true when Test-DscConfiguration is run' {

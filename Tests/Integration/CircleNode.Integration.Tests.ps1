@@ -66,7 +66,6 @@ try
                     -and $_.ResourceId -eq $resourceId
                 }
 
-                $resourceCurrentState.Ensure | Should -Be 'Present'
                 $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
             Describe "NVM" {
