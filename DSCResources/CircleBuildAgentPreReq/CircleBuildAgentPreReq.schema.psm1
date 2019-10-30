@@ -1,5 +1,6 @@
 Configuration CircleBuildAgentPreReq {
     Import-DscResource -Module cChoco
+    Import-DscResource -Module CircleCIDSC
 
     CircleChoco choco { }
 

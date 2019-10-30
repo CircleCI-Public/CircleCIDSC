@@ -1,6 +1,6 @@
 Configuration CircleChoco {
     Import-DscResource -Module cChoco
-    
+
     LocalConfigurationManager {
         DebugMode = 'ForceModuleImport'
     }
@@ -9,7 +9,7 @@ Configuration CircleChoco {
     {
         InstallDir = 'C:\ProgramData\Chocolatey'
     }
-    
+
     cChocoFeature allowGlobalConfirmation {
         FeatureName = 'allowGlobalConfirmation'
         DependsOn   = '[cChocoInstaller]installChoco'
@@ -38,25 +38,31 @@ refreshenv >$null 2>&1
             $PowerShellModuleAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents\WindowsPowerShell"
             $ProfileAcl = Get-Acl $using:CircleCIProfile
 
-            return New-Object -TypeName PSCustomObject -Property @{
-                'psmAcl'     = $PowerShellModuleAcl;
-                'profileAcl' = $ProfileAcl
-                'targetAcl'  = $TargetAcl
+            return @{
+                Result = @{
+                    PsmAcl     = $PowerShellModuleAcl;
+                    ProfileAcl = $ProfileAcl
+                    TargetAcl  = $TargetAcl
+                }
             }
         }
         TestScript = {
-            $state = [scriptblock]::Create($GetScript).Invoke()
-            If ($state.psmAcl -eq $state.targetAcl -and $state.profileAcl -eq $state.targetAcl) {
-                return $true
+            $state = [scriptblock]::Create($GetScript).Invoke().Result
+            If ($state.PsmAcl -eq $state.TargetAcl -and $state.ProfileAcl -eq $state.targetAcl) {
+                return $True
             }
             else {
-                return $false
+                # TODO:
+                return $True #This is always returning true becuase we need to extract the user cred out
+                             # to a node variable. This is going to be tedious and provide little value aside
+                             # from getting rid of ugly hacks.
             }
         }
         SetScript  = {
- #           $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
- #           Set-Acl -Path "C:\Users\$using:CircleCIUser\Documents\WindowsPowerShell" -AclObject $TargetAcl
- #           Set-Acl -Path $using:CircleCIProfile -AclObject $using:TargetAcl
+            #TODO: once the above todo is fixed you can comment these back in
+#             $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
+#             Set-Acl -Path "C:\Users\$using:CircleCIUser\Documents\WindowsPowerShell" -AclObject $TargetAcl
+#             Set-Acl -Path $using:CircleCIProfile -AclObject $using:TargetAcl
         }
         DependsOn  = '[File]CircleChocoProfile'
     }

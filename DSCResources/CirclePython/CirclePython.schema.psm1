@@ -1,6 +1,6 @@
 Configuration CirclePython {
     [CmdletBinding()]
-    param 
+    param
     (
         # The name of this python env
         [parameter(Mandatory)]
@@ -12,7 +12,8 @@ Configuration CirclePython {
 
         [System.Boolean] $DefaultVersion = $false
     )
-    
+
+    Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
     CircleChoco choco { }
 
@@ -29,15 +30,16 @@ Configuration CirclePython {
         GetScript  = {
             $matches = $null
             # TODO: THIS IS STILL BROKEN, Currently it grabs the path to the python as well as the name
+            & refreshenv
             # But the DSC still gets the job done.
             $envs = $(conda env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
             $pythonVersions = @()
             if ($envs) {
                 $pythonVersions = $envs
-            } 
-            return New-Object -TypeName PSCustomObject -Property @{'Result' = $pythonVersions }
+            }
+            return @{Result = $pythonVersions }
         }
-        
+
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
             if ($state.Result -And $state.Result.Contains($using:EnvName)) {

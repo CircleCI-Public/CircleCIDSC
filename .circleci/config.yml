@@ -12,10 +12,30 @@ executors:
       shell: powershell.exe -ExecutionPolicy Bypass
 
 jobs:
-  import-module:
+  test-module:
     executor: windows
+    working_directory: "~/CircleCIDSC"
     steps:
-      - checkout
+      - checkout:
+          path: "~/CircleCIDSC"
+      - run:
+          name: fix pester
+          shell: powershell.exe
+          command: |
+            $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
+            takeown /F $module /A /R
+            icacls $module /reset
+            icacls $module /grant Administrators:'F' /inheritance:d /T
+            Remove-Item -Path $module -Recurse -Force -Confirm:$false
+
+            $module = "C:\Program Files (x86)\WindowsPowerShell\Modules\Pester"
+            takeown /F $module /A /R
+            icacls $module /reset
+            icacls $module /grant Administrators:'F' /inheritance:d /T
+            Remove-Item -Path $module -Recurse -Force -Confirm:$false
+
+            Install-Module -Name Pester -Force -RequiredVersion 4.9.0
+            Update-Module -Name Pester
       - run:
           name: install deps
           shell: powershell.exe
@@ -31,30 +51,47 @@ jobs:
             Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
             Install-Module -Name ComputerManagementDsc -Force
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
-      - run: 
+      - run:
           name: grab the tests module
           shell: powershell.exe
-          command: | 
+          command: |
             cd ..
             $ProgressPreference = "SilentlyContinue"
-            git clone https://github.com/PowerShell/DscResource.Tests
+            git clone --branch dev https://github.com/PowerShell/DscResource.Tests
+            $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            Invoke-AppveyorInstallTask
+            $null = New-DscSelfSignedCertificate
       - run:
           name: test all modules
           shell: powershell.exe
           command: |
             $ProgressPreference = "SilentlyContinue"
-            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
+            $env:CONFIGURATION='Integration'
+            $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo
+            function Add-AppveyorTest {
+                  [cmdletbinding()]
+                  param ($Name, $Framework, $Filename, $Outcome, $Duration, $ErrorMessage, $ErrorStackTrace)
+                  Write-Output $Name
+                  Write-Output $Framework
+                  Write-Output $Filename
+                  Write-Output $Outcome
+                  Write-Output $Duration
+                  Write-Output $ErrorMessage
+                  Write-Output $ErrorStackTrace
+
+            }
+            Invoke-AppveyorTestScriptTask
 
   deploy-module:
     executor: windows
+    working_directory: "~/CircleCIDSC"
     steps:
-      - checkout
+      - checkout:
+          path: "~/CircleCIDSC"
       - run:
           name: install deps
           shell: powershell.exe
@@ -71,15 +108,14 @@ jobs:
             Install-Module -Name ComputerManagementDsc -Force
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
 
-      - run: 
+      - run:
           name: grab the tests module
           shell: powershell.exe
-          command: | 
+          command: |
             cd ..
             $ProgressPreference = "SilentlyContinue"
             git clone https://github.com/PowerShell/DscResource.Tests
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            Invoke-AppveyorInstallTask
 
       - run:
           name: after test scripts
@@ -87,8 +123,9 @@ jobs:
           command: |
             $ProgressPreference = "SilentlyContinue"
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
-            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
+            $moduleName = "CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Invoke-AppveyorAfterTestTask -Author CircleCI -Owner CircleCI
       - run:
@@ -97,24 +134,26 @@ jobs:
           command: |
             $ProgressPreference = "SilentlyContinue"
             $gallery_api = $psgkey
-            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\project"
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
             Write-Output "version $env:CIRCLE_BUILD_NUM"
+            $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
             Invoke-AppVeyorDeployTask -OptIn @()
             import-module .\CircleCIDSC
             cd ..
-            cp -r project 'C:\Program Files\WindowsPowerShell\Modules\CircleCIDSC'
+            cp -r CircleCIDSC 'C:\Program Files\WindowsPowerShell\Modules\CircleCIDSC'
             Publish-Module -Name CircleCIDSC -NuGetApiKey $env:psgkey
 
 
 
 
 workflows:
+  version: 2
   dsc-tests:
     jobs:
-      - import-module
+      - test-module
       - deploy-module:
         filters:
           branches:

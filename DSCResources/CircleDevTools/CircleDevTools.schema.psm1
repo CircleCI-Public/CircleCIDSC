@@ -1,8 +1,10 @@
 Configuration CircleDevTools {
     Import-DscResource -Module cChoco
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -Module CircleCIDSC
     CircleChoco choco { }
-    
+
+
     cChocoPackageInstaller nunit
     {
         Name      = "nunit-console-runner"

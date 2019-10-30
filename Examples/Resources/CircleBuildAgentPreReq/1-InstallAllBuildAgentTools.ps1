@@ -8,7 +8,6 @@ Configuration BuildAgentTools
 
     Node $AllNodes.NodeName
     {
-        CircleChoco choco {} # choco needs to be configured for this resource to work
         CircleBuildAgentPreReq BuildAgentTools { }
     }
 }
