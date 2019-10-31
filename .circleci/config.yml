@@ -14,10 +14,10 @@ executors:
 jobs:
   test-module:
     executor: windows
-    working_directory: "~/CircleCIDSC"
+    working_directory: "~/projects/CircleCIDSC"
     steps:
       - checkout:
-          path: "~/CircleCIDSC"
+          path: "~/projects/CircleCIDSC"
       - run:
           name: fix pester
           shell: powershell.exe
@@ -66,7 +66,7 @@ jobs:
           shell: powershell.exe
           command: |
             $ProgressPreference = "SilentlyContinue"
-            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
+            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\projects\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
             $env:CONFIGURATION='Integration'
@@ -84,7 +84,7 @@ jobs:
                   Write-Output $ErrorStackTrace
 
             }
-            cd "C:\Users\circleci\CircleCIDSC"
+            cd "C:\Users\circleci\projects\CircleCIDSC"
             $InformationPreference="Continue"
             Invoke-AppveyorTestScriptTask -RunTestInOrder
 
