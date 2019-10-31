@@ -85,6 +85,7 @@ jobs:
 
             }
             cd "C:\Users\circleci\CircleCIDSC"
+            $InformationPreference="Continue"
             Invoke-AppveyorTestScriptTask -RunTestInOrder
 
   deploy-module:
