@@ -84,6 +84,7 @@ jobs:
                   Write-Output $ErrorStackTrace
 
             }
+            cd "C:\Users\circleci\CircleCIDSC"
             Invoke-AppveyorTestScriptTask -RunTestInOrder
 
   deploy-module:
