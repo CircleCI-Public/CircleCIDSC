@@ -84,7 +84,7 @@ jobs:
                   Write-Output $ErrorStackTrace
 
             }
-            Invoke-AppveyorTestScriptTask
+            Invoke-AppveyorTestScriptTask -RunTestInOrder
 
   deploy-module:
     executor: windows

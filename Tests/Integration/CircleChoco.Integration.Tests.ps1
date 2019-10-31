@@ -1,4 +1,4 @@
-[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows', ContainerImage = 'mcr.microsoft.com/windows/servercore:ltsc2019')]
+[Microsoft.DscResourceKit.IntegrationTest(ContainerName = 'windows' )]
 param()
 
 
