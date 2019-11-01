@@ -40,9 +40,9 @@ Configuration CircleNode {
                 $nvmVersions = $matches
             }
             else {
-                $nvmVersions = @()
+                $nvmVersions = ""
             }
-            return @{ Result   =  $nvmVersions }
+            return @{ Result   =  $nvmVersions.Values }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
