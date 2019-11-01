@@ -50,9 +50,7 @@ Configuration CircleNode {
                 $selectedVersion = @()
             }
 
-            return @{
-                Result   =  $nvmVersions;
-            }
+            return @{ Result   =  $nvmVersions }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
@@ -65,8 +63,8 @@ Configuration CircleNode {
             }
 
 
-            if ($state.Result.Versions -And $state.Result.Versions.Contains($using:Version)) {
-                Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $state.Result.Versions)
+            if ($state.Result -And $state.Result.Contains($using:Version)) {
+                Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $state.Result)
                 if ($using:DefaultVersion) {
                     if ($selectedVersion -eq $using:Version) {
                         return $true
@@ -82,7 +80,7 @@ Configuration CircleNode {
                 }
             }
             else {
-                Write-Verbose -Message ('Version {0} missing in {1}' -f $using:Version, $state.Result.Versions)
+                Write-Verbose -Message ('Version {0} missing in {1}' -f $using:Version, $state.Result)
                 return $false
             }
         }
