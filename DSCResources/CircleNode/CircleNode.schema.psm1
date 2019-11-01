@@ -51,23 +51,29 @@ Configuration CircleNode {
             }
 
             return @{
-                Result   = @{
-                    Versions =  $nvmVersions;
-                    Selected = $selectedVersion
-                }
+                Result   =  $nvmVersions;
             }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
+            $(nvm list) | Where-Object { $_ -match '\* \d+\.\d+\.\d+' }
+            if ( $matches ) {
+                $selectedVersion = $matches[0]
+            }
+            else {
+                $selectedVersion = @()
+            }
+
+
             if ($state.Result.Versions -And $state.Result.Versions.Contains($using:Version)) {
                 Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $state.Result.Versions)
                 if ($using:DefaultVersion) {
-                    if ($state.Result.Selected -eq $using:Version) {
+                    if ($selectedVersion -eq $using:Version) {
                         return $true
-                        Write-Verbose -Message ('Version {0} selected' -f $state.Selected)
+                        Write-Verbose -Message ('Version {0} selected' -f $selectedVersion)
                     }
                     else {
-                        Write-Verbose -Message ('Version {0} selected expected {1}' -f $state.Result.Selected, $using:Version)
+                        Write-Verbose -Message ('Version {0} selected expected {1}' -f $selectedVersion, $using:Version)
                         return $false
                     }
                 }
