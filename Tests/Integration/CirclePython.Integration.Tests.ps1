@@ -78,11 +78,11 @@ try
 
 
             It "conda is present and on the path" {
-                $(Get-Command -Name "conda")
+                $(Get-Command -Name "conda").Count | Should -Eq 1
             }
 
             It "python is present and on the path" {
-                $(Get-Command -Name "python")
+                $(Get-Command -Name "python").Count | Should -Eq 1
             }
 
             It 'Should return $true when Test-DscConfiguration is run' {
