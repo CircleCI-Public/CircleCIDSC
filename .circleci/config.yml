@@ -89,7 +89,7 @@ jobs:
 
             }
 
-            (Get-ChildItem Tests/Integration/*.ps1 | Select-String -Pattern "<< parameters.module_name >>" -NotMatch | Select-Object -ExpandProperty path -Unique) | ForEach-Object{Remove-Item -Force -LiteralPath $_}
+            Get-ChildItem -Path Tests/Integration/*.ps1 | where Name -NotMatch '<< parameters.module_name >>'  | ForEach-Object{Remove-Item -Force -LiteralPath $_}
             Invoke-AppveyorTestScriptTask
 
   test-module:
