@@ -32,7 +32,7 @@ Configuration CirclePython {
         # For some reason the miniconda3 install wants to get the
         # parent directory of where it's being isnstalled
         # this C:\ is despite what it looks like not a directory
-        Params    = '/D:c:\Tools\miniconda3'
+        Params    = '/D:c:\Tools\miniconda3\'
         Version   = '4.7.10'
     }
 
