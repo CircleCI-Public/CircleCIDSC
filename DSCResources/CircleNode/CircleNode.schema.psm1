@@ -44,7 +44,7 @@ Configuration CircleNode {
                 $nvmVersions = @()
             }
             $ofs = ';'
-            return @{ Result = @{Versions =  $nvmVersions.Values }
+            return @{ Result = @{Versions =  $nvmVersions.Values }}
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
