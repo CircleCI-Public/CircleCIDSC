@@ -65,6 +65,7 @@ Configuration CirclePython {
         }
 
         SetScript  = {
+            & choco install miniconda3 --no-progress -y
             & 'C:\tools\miniconda3\condabin\conda' update -y -n base -c defaults conda
             & 'C:\tools\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip
             if ( $using:DefaultVersion ) {
