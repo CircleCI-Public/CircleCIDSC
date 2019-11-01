@@ -84,7 +84,7 @@ try
 
             Describe "yarn" {
                 It "is installed" {
-                    nvm on
+                    & nvm on
                     $(Get-Command -Name "yarn").Count | Should -Eq 1
                 }
             }
