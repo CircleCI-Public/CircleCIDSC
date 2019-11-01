@@ -28,8 +28,7 @@ Configuration CirclePython {
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
-        Params    = '/AddToPath:1'
-        DependsOn = '[File]miniconda'
+        Version   = '4.7.10'
     }
 
     CirclePath pythonPath {
@@ -65,7 +64,6 @@ Configuration CirclePython {
         }
 
         SetScript  = {
-            & choco install miniconda3 --no-progress -y
             & 'C:\tools\miniconda3\condabin\conda' update -y -n base -c defaults conda
             & 'C:\tools\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip
             if ( $using:DefaultVersion ) {
