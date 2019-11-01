@@ -47,8 +47,8 @@ refreshenv >$null 2>&1
             return @{
                 Result = @{
                     PsmAcl     = $PowerShellModuleAcl;
-                    ProfileAcl = $ProfileAcl
-                    TargetAcl  = $TargetAcl
+                    ProfileAcl = $ProfileAcl;
+                    TargetAcl  = $TargetAcl;
                 }
             }
         }

@@ -35,7 +35,8 @@ Configuration CircleNode {
     Script InstallNode {
         GetScript  = {
             $matches = $null
-            $(nvm list) | Where-Object { $_ -match '\d+\.\d+\.\d+' }
+            #The write verbose makes it so that this does not return uneeded values
+            $(nvm list) | Where-Object { $_ -match '\d+\.\d+\.\d+' } | write-verbose
             if ($matches) {
                 $nvmVersions = $matches
             }
@@ -43,7 +44,7 @@ Configuration CircleNode {
                 $nvmVersions = @()
             }
             $ofs = ';'
-            return @{ Result = @{Versions =  "$nvmVersions.Values"} }
+            return @{ Result = @{Versions =  $nvmVersions.Values }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
@@ -55,7 +56,7 @@ Configuration CircleNode {
                 $selectedVersion = @()
             }
 
-            $versions = $state.Result.Versions -split ";"
+            $versions = $state.Result.Versions
 
             if ($state.Result -And $versions.Contains($using:Version)) {
                 Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $versions)
