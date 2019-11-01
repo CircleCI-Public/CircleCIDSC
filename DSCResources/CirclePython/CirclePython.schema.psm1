@@ -33,7 +33,7 @@ Configuration CirclePython {
         # parent directory of where it's being isnstalled
         # this C:\ is despite what it looks like not a directory
         Params    = '/D:c:\Tools\miniconda3\'
-        Version   = '4.7.10'
+        Version   = '4.6.14'
     }
 
     CirclePath pythonPath {
