@@ -26,7 +26,7 @@ Configuration CirclePath {
         }
         SetScript  = {
             Write-Verbose -Message "adding $using:PathItem to path"
-            $currentPath = Get-MachinePath
+            $currentPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
             $newPath = $using:PathItem + ';' + $currentPath
             Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
             foreach($level in "Machine","User") {

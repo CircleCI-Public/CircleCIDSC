@@ -57,6 +57,8 @@ try
                 } | Should -Not -Throw
             }
 
+            Update-Paths
+
             It 'Should be able to call Get-DscConfiguration without throwing' {
                 {
                     $script:currentConfiguration = Get-DscConfiguration -Verbose -ErrorAction Stop
@@ -71,7 +73,6 @@ try
 
                 $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
-            Update-Paths
             Describe "NVM" {
                 It "is installed" {
                     $(Get-Command -Name "nvm").Count | Should -Eq 1
