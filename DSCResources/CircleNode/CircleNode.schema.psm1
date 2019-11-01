@@ -82,7 +82,6 @@ Configuration CircleNode {
         }
 
         SetScript  = {
-            Write-Verbose -Message $(refreshenv)
             $(nvm install $using:Version)
             if ($using:DefaultVersion) {
                 Write-Verbose "setting $using:Version as Default version"
