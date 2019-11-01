@@ -2,7 +2,7 @@ Configuration CircleMicrosoftTools {
     param (
         # Parameterhelp description
         [System.Boolean]
-        $InstallVS=$True
+        $InstallVS=$True,
 
         # DotNet has to have a restart, this won't work for testing
         [System.Boolean]
