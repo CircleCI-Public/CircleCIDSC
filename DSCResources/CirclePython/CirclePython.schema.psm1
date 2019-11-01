@@ -56,11 +56,11 @@ Configuration CirclePython {
         }
 
         SetScript  = {
-            $('C:\tools\miniconda3\condabin\conda' update -y -n base -c defaults conda)
-            $('C:\tools\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip)
+            $(& 'C:\tools\miniconda3\condabin\conda' update -y -n base -c defaults conda)
+            $(& 'C:\tools\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip)
             if ( $using:DefaultVersion ) {
-                $('C:\tools\miniconda3\condabin\conda' config --set changeps1 false)
-                $('C:\tools\miniconda3\condabin\conda' init)
+                $(& 'C:\tools\miniconda3\condabin\conda' config --set changeps1 false)
+                $(& 'C:\tools\miniconda3\condabin\conda' init)
             }
         }
         DependsOn  = '[CirclePath]pythonPath'
