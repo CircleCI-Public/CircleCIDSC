@@ -27,6 +27,7 @@ Configuration CirclePython {
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
+        Version   = '4.7.10'
         DependsOn = '[CircleChoco]choco'
     }
 
