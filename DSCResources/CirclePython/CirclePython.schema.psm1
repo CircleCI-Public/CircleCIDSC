@@ -35,7 +35,7 @@ Configuration CirclePython {
             $matches = $null
             # TODO: THIS IS STILL BROKEN, Currently it grabs the path to the python as well as the name
             # But the DSC still gets the job done.
-            $envs = $('C:\tools\miniconda3\condabin\conda' env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
+            $envs = $(& 'C:\tools\miniconda3\condabin\conda' env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
             $pythonVersions = @()
             if ($envs) {
                 $pythonVersions = $envs
