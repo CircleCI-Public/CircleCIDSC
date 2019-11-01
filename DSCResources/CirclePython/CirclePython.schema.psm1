@@ -17,6 +17,13 @@ Configuration CirclePython {
     Import-DscResource -Module cChoco
     CircleChoco choco { }
 
+    File Tools {
+        Type = 'Directory'
+        DestinationPath = 'C:\tools\miniconda3'
+        Ensure = "Present"
+    }
+
+
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
