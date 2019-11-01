@@ -61,6 +61,8 @@ try
                 } | Should -Not -Throw
             }
 
+            Update-Paths
+
             It 'Should be able to call Get-DscConfiguration without throwing' {
                 {
                     $script:currentConfiguration = Get-DscConfiguration -Verbose -ErrorAction Stop
@@ -74,7 +76,6 @@ try
                 }
             }
 
-            Update-Paths
 
             It "conda is present and on the path" {
                 $(Get-Command -Name "conda")

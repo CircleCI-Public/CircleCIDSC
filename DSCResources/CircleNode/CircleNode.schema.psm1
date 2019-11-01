@@ -22,6 +22,7 @@ Configuration CircleNode {
 
     Script InstallNode {
         GetScript  = {
+            & refreshenv
             $matches = $null
             $(nvm list) | Where-Object { $_ -match '\d+\.\d+\.\d+' }
             if ($matches) {
