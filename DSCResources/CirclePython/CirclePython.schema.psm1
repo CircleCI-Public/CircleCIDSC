@@ -24,7 +24,7 @@ Configuration CirclePython {
     }
 
     CirclePath pythonPath {
-        PathItem = "C:\tools\miniconda3"
+        PathItem = "C:\tools\miniconda3\condabin"
         DependsOn = '[cChocoPackageInstaller]miniconda3'
     }
 
