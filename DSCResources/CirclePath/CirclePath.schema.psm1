@@ -30,7 +30,7 @@ Configuration CirclePath {
             $currentPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
             $newPath = $using:PathItem + ';' + $currentPath
             Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
-            Write-Verbose -Message "starting Env: $env"
+            Write-Verbose -Message "starting Env: $Env"
             foreach($level in "Machine","User") {
                 [Environment]::GetEnvironmentVariables($level).GetEnumerator() | ForEach-Object {
                     # For Path variables, append the new values, if they're not already in there
@@ -40,7 +40,7 @@ Configuration CirclePath {
                     $_
                 } | Set-Content -Path { "Env:$($_.Name)" }
             }
-            Write-Verbose -Message "Ending Env: $env"
+            Write-Verbose -Message "Ending Env: $Env"
 
         }
     }

@@ -31,6 +31,8 @@ Configuration CirclePython {
             $matches = $null
             # TODO: THIS IS STILL BROKEN, Currently it grabs the path to the python as well as the name
             & refreshenv
+            env
+
             # But the DSC still gets the job done.
             $envs = $(conda env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
             $pythonVersions = @()
