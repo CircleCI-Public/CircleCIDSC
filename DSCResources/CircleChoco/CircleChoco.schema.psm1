@@ -32,6 +32,12 @@ refreshenv >$null 2>&1
         Contents        = $ImportHelpers
     }
 
+    File Tools {
+        Type = 'Directory'
+        DestinationPath = 'C:\Tools'
+        Ensure = "Present"
+    }
+
     Script SetProfileACL {
         GetScript  = {
             $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
