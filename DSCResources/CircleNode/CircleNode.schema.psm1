@@ -22,7 +22,7 @@ Configuration CircleNode {
 
     Script InstallNode {
         GetScript  = {
-            & refreshenv
+            Write-Verbose -Message $(refreshenv)
             $matches = $null
             $(nvm list) | Where-Object { $_ -match '\d+\.\d+\.\d+' }
             if ($matches) {
@@ -71,6 +71,7 @@ Configuration CircleNode {
         }
 
         SetScript  = {
+            Write-Verbose -Message $(refreshenv)
             $(nvm install $using:Version)
             if ($using:DefaultVersion) {
                 Write-Verbose "setting $using:Version as Default version"
