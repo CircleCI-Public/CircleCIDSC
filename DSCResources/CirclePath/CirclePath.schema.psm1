@@ -36,7 +36,7 @@ Configuration CirclePath {
                     if($_.Name -match '^Path$') {
                         $_.Value = ($((Get-Content "Env:$($_.Name)") + ";$($_.Value)") -split ';' | Select-Object -unique) -join ';'
                     }
-                    Write-Verbose -Message "$_.Name : $_.Value"
+                    Write-Verbose -Message "$($_.Name) : $($_.Value)"
                     $_
                 } | Set-Content -Path { "Env:$($_.Name)" }
             }
