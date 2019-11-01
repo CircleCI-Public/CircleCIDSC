@@ -22,13 +22,13 @@ Configuration CircleNode {
 
     CirclePath nvm-home-path
     {
-       PathItem = "$Env:NVM_HOME"
+       PathItem = "C:\ProgramData\nvm"
        DependsOn = '[cChocoPackageInstaller]nvm-portable'
     }
 
     CirclePath nvm-symlink-path
     {
-        PathItem = "$Env:NVM_SYMLINK"
+        PathItem = "C:\Program Files\nodejs;"
         DependsOn = '[CirclePath]nvm-home-path'
     }
 
