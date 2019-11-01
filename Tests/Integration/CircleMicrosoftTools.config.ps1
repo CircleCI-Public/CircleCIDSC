@@ -17,7 +17,8 @@ Configuration CircleMicrosoftTools_Integration_Config
     node $AllNodes.NodeName
     {
         CircleMicrosoftTools 'Integration_Test' {
-            InstallVS=$false
+            InstallVS=$False
+            InstallDotNet=$False
          }
     }
 }

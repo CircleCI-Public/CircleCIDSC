@@ -75,18 +75,6 @@ try
                 Test-DscConfiguration -Verbose | Should -Be 'True'
             }
 
-
-            Describe ".net" {
-                It "the dotnet cli tool is on the path" {
-                    $(Get-Command -Name 'dotnet') | Should -HaveCount 1
-                }
-                It "4 versions of the sdk are installed" {
-                    $(dotnet --list-sdks).Split([System.Environment]::NewLine).Count | Should -EQ 2
-                }
-                It "6 versions of the runtime are installed" {
-                    $(dotnet --list-runtimes).Split([System.Environment]::NewLine).Count | Should -EQ 6
-                }
-            }
             Describe "The Windows sdk" {
                 It "is installed" {
                     "$Env:Programfiles (x86)\Windows Kits\10" | Should -Exist

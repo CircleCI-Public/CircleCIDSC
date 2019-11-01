@@ -2,7 +2,11 @@ Configuration CircleMicrosoftTools {
     param (
         # Parameterhelp description
         [System.Boolean]
-        $InstallVS=$true
+        $InstallVS=$True
+
+        # DotNet has to have a restart, this won't work for testing
+        [System.Boolean]
+        $InstallDotNet=$True
     )
 
 
@@ -98,23 +102,25 @@ Configuration CircleMicrosoftTools {
         Name = 'nuget.commandline'
     }
 
-    # These are last. This is becuase despite my best efforts
-    # They inspire the machine to require a reboot
-    Package dotnet-sdk-3-0
-    {
-        Name      = 'Microsoft .NET Core SDK 3.0.100 (x64)'
-        Path      = 'https://download.visualstudio.microsoft.com/download/pr/53f250a1-318f-4350-8bda-3c6e49f40e76/e8cbbd98b08edd6222125268166cfc43/dotnet-sdk-3.0.100-win-x64.exe'
-        ProductId = '2594A057-CD99-4023-8F19-9D8513EE5446'
-        Arguments = '/install /quiet /norestart'
+    if ($InstallDotNet) {
+        # These are last. This is becuase despite my best efforts
+        # They inspire the machine to require a reboot
+        Package dotnet-sdk-3-0
+        {
+            Name      = 'Microsoft .NET Core SDK 3.0.100 (x64)'
+            Path      = 'https://download.visualstudio.microsoft.com/download/pr/53f250a1-318f-4350-8bda-3c6e49f40e76/e8cbbd98b08edd6222125268166cfc43/dotnet-sdk-3.0.100-win-x64.exe'
+            ProductId = '2594A057-CD99-4023-8F19-9D8513EE5446'
+            Arguments = '/install /quiet /norestart'
 
-    }
+        }
 
-    Package dotnet-sdk-4-8
-    {
-        Name      = 'Microsoft .NET Framework 4.8 SDK'
-        Path      = "https://download.visualstudio.microsoft.com/download/pr/014120d7-d689-4305-befd-3cb711108212/0307177e14752e359fde5423ab583e43/ndp48-devpack-enu.exe"
-        ProductId = "949C0535-171C-480F-9CF4-D25C9E60FE88"
-        Arguments = '/install /quiet /norestart'
+        Package dotnet-sdk-4-8
+        {
+            Name      = 'Microsoft .NET Framework 4.8 SDK'
+            Path      = "https://download.visualstudio.microsoft.com/download/pr/014120d7-d689-4305-befd-3cb711108212/0307177e14752e359fde5423ab583e43/ndp48-devpack-enu.exe"
+            ProductId = "949C0535-171C-480F-9CF4-D25C9E60FE88"
+            Arguments = '/install /quiet /norestart'
+        }
     }
 }
 
