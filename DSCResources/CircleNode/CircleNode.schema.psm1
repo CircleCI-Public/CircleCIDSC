@@ -28,13 +28,12 @@ Configuration CircleNode {
 
     CirclePath nvm-symlink-path
     {
-        PathItem = "C:\Program Files\nodejs;"
+        PathItem = "C:\Program Files\nodejs"
         DependsOn = '[CirclePath]nvm-home-path'
     }
 
     Script InstallNode {
         GetScript  = {
-            Write-Verbose -Message $(refreshenv)
             $matches = $null
             $(nvm list) | Where-Object { $_ -match '\d+\.\d+\.\d+' }
             if ($matches) {
