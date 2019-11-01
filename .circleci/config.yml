@@ -91,6 +91,8 @@ jobs:
             $null = New-DscSelfSignedCertificate
             Get-ChildItem -Path Tests/Integration/*.ps1 | where Name -NotMatch '<< parameters.module_name >>'  | ForEach-Object{Remove-Item -Force -LiteralPath $_}
             Invoke-AppveyorTestScriptTask
+      - store_artifacts:
+          path: C:\ProgramData\chocolatey\logs\chocolatey.log
 
   deploy-module:
     executor: windows
