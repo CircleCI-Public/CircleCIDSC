@@ -35,7 +35,7 @@ Configuration CirclePython {
             $matches = $null
             # TODO: THIS IS STILL BROKEN, Currently it grabs the path to the python as well as the name
             # But the DSC still gets the job done.
-            $envs = $(& 'C:\tools\miniconda3\condabin\conda' env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
+            $envs = $(C:\tools\miniconda3\condabin\conda env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
             $pythonVersions = @()
             if ($envs) {
                 $pythonVersions = $envs
@@ -56,11 +56,11 @@ Configuration CirclePython {
         }
 
         SetScript  = {
-            $(& 'C:\tools\miniconda3\condabin\conda' update -y -n base -c defaults conda)
-            $(& 'C:\tools\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip)
+            & 'C:\tools\miniconda3\condabin\conda' update -y -n base -c defaults conda
+            & 'C:\tools\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip
             if ( $using:DefaultVersion ) {
-                $(& 'C:\tools\miniconda3\condabin\conda' config --set changeps1 false)
-                $(& 'C:\tools\miniconda3\condabin\conda' init)
+                & 'C:\tools\miniconda3\condabin\conda' config --set changeps1 false
+                & 'C:\tools\miniconda3\condabin\conda' init
             }
         }
         DependsOn  = '[CirclePath]pythonPath'
