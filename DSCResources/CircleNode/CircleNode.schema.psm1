@@ -60,14 +60,14 @@ Configuration CircleNode {
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
             if ($state.Result.Versions -And $state.Result.Versions.Contains($using:Version)) {
-                Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $state.Result)
+                Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $state.Result.Versions)
                 if ($using:DefaultVersion) {
                     if ($state.Result.Selected -eq $using:Version) {
                         return $true
                         Write-Verbose -Message ('Version {0} selected' -f $state.Selected)
                     }
                     else {
-                        Write-Verbose -Message ('Version {0} selected expected {1}' -f $state.Result, $using:Version)
+                        Write-Verbose -Message ('Version {0} selected expected {1}' -f $state.Result.Selected, $using:Version)
                         return $false
                     }
                 }
@@ -76,18 +76,18 @@ Configuration CircleNode {
                 }
             }
             else {
-                Write-Verbose -Message ('Version {0} missing in {1}' -f $using:Version, $state.Result)
+                Write-Verbose -Message ('Version {0} missing in {1}' -f $using:Version, $state.Result.Versions)
                 return $false
             }
         }
 
         SetScript  = {
-            $(nvm on)
-            $(nvm install $using:Version)
+            nvm on
+            nvm install $using:Version
             if ($using:DefaultVersion) {
                 Write-Verbose "setting $using:Version as Default version"
-                $(nvm use $using:Version)
-                $(npm install -g yarn)
+                nvm use $using:Version
+                npm install -g yarn
             }
         }
         DependsOn  = '[CirclePath]nvm-symlink-path'
