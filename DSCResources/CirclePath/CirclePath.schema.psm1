@@ -16,11 +16,11 @@ Configuration CirclePath {
             $result = [scriptblock]::Create($GetScript).Invoke().Result
             $state = $result.split(';')
             if ($state -contains $using:PathItem) {
-                Write-Verbose -Message $state
                 Write-Verbose -Message "$using:PathItem is present in machine path"
                 return $True
             }
             else {
+                Write-Verbose -Message $result
                 Write-Verbose -Message "$using:PathItem is missing in machine path"
                 return $False
             }
