@@ -17,10 +17,11 @@ Configuration CirclePython {
     Import-DscResource -Module cChoco
     CircleChoco choco { }
 
-    File Tools {
+    File miniconda {
         Type = 'Directory'
         DestinationPath = 'C:\tools\miniconda3'
         Ensure = "Present"
+        DependsOn = '[CircleChoco]choco'
     }
 
 
@@ -28,7 +29,7 @@ Configuration CirclePython {
     {
         Name      = 'miniconda3'
         Version   = '4.7.10'
-        DependsOn = '[CircleChoco]choco'
+        DependsOn = '[File]miniconda'
     }
 
     CirclePath pythonPath {
