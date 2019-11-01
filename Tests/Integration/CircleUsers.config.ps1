@@ -16,12 +16,12 @@ $ConfigurationData = @{
     .SYNOPSIS
     Adds the circleCI users
 #>
-Configuration CircleUser_Integration_Config
+Configuration CircleUsers_Integration_Config
 {
     Import-DscResource -ModuleName CircleCIDSC
 
     Node $AllNodes.NodeName
     {
-        CircleUser 'Integration_Test' { }
+        CircleUsers 'Integration_Test' { }
     }
 }
