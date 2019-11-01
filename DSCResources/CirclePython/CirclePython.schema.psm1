@@ -20,8 +20,12 @@ Configuration CirclePython {
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
-        Params    = '/AddToPath:1'
         DependsOn = '[CircleChoco]choco'
+    }
+
+    CirclePath pythonPath {
+        PathItem = "C:\tools\miniconda3"
+        DependsOn = '[cChocoPackageInstaller]miniconda3'
     }
 
 
@@ -30,9 +34,6 @@ Configuration CirclePython {
         GetScript  = {
             $matches = $null
             # TODO: THIS IS STILL BROKEN, Currently it grabs the path to the python as well as the name
-            & refreshenv
-            env
-
             # But the DSC still gets the job done.
             $envs = $(conda env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
             $pythonVersions = @()
@@ -62,6 +63,6 @@ Configuration CirclePython {
                 $(conda init)
             }
         }
-        DependsOn  = '[cChocoPackageInstaller]miniconda3'
+        DependsOn  = '[CirclePath]pythonPath'
     }
 }
