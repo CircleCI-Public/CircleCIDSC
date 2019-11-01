@@ -66,9 +66,9 @@ jobs:
             import-module ..\DscResource.Tests\AppVeyor.psm1
       - run:
           name: test all modules
-          shell: bash.exe
+          shell: powershell.exe
           command: |
-            powershell.exe
+            . C:\Users\CircleCI\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
             $ProgressPreference = "SilentlyContinue"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
