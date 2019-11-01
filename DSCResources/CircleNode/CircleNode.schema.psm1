@@ -82,11 +82,11 @@ Configuration CircleNode {
         }
 
         SetScript  = {
+            $(nvm on)
             $(nvm install $using:Version)
             if ($using:DefaultVersion) {
                 Write-Verbose "setting $using:Version as Default version"
                 $(nvm use $using:Version)
-                $(nvm on)
                 $(npm install -g yarn)
             }
         }
