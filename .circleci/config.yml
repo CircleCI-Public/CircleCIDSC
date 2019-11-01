@@ -66,7 +66,7 @@ jobs:
             import-module ..\DscResource.Tests\AppVeyor.psm1
       - run:
           name: test all modules
-          shell: base.exe
+          shell: bash.exe
           command: |
             powershell.exe
             $ProgressPreference = "SilentlyContinue"
