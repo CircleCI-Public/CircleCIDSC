@@ -20,6 +20,18 @@ Configuration CircleNode {
         DependsOn = '[CircleChoco]choco'
     }
 
+    CirclePath nvm-home-path
+    {
+       PathItem = "$Env:NVM_HOME"
+       DependsOn = '[cChocoPackageInstaller]nvm-portable'
+    }
+
+    CirclePath nvm-symlink-path
+    {
+        PathItem = "$Env:NVM_SYMLINK"
+        DependsOn = '[CirclePath]nvm-home-path'
+    }
+
     Script InstallNode {
         GetScript  = {
             Write-Verbose -Message $(refreshenv)
@@ -80,6 +92,6 @@ Configuration CircleNode {
                 $(npm install -g yarn)
             }
         }
-        DependsOn  = '[cChocoPackageInstaller]nvm-portable'
+        DependsOn  = '[CirclePath]nvm-symlink-path'
     }
 }
