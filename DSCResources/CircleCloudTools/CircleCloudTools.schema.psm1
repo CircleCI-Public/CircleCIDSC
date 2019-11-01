@@ -33,12 +33,13 @@ Configuration CircleCloudTools {
         InstallationPolicy ="Trusted"
     }
 
-    PackageManagement ServiceFabric
-    {
-        Name            = "Microsoft.ServiceFabric"
-        RequiredVersion = "6.5.664"
-        DependsOn       = "[PackageManagementSource]Nuget"
-    }
+    # THis might get instlaled by ServiceFabricSDK
+#    PackageManagement ServiceFabric
+#    {
+#        Name            = "Microsoft.ServiceFabric"
+#        RequiredVersion = "6.5.664"
+#        DependsOn       = "[PackageManagementSource]Nuget"
+#    }
 
     cChocoPackageInstaller ServiceFabricSDK
     {
