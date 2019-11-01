@@ -25,12 +25,12 @@ Configuration CirclePython {
     }
 
 
-    cChocoPackageInstaller miniconda3
-    {
-        Name      = 'miniconda3'
-        Version   = '4.7.10'
-        DependsOn = '[File]miniconda'
-    }
+ #   cChocoPackageInstaller miniconda3
+ #   {
+ #       Name      = 'miniconda3'
+ #       Version   = '4.7.10'
+ #       DependsOn = '[File]miniconda'
+ #   }
 
     CirclePath pythonPath {
         PathItem = "C:\tools\miniconda3\condabin"
