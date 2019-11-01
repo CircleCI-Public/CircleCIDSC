@@ -40,9 +40,9 @@ Configuration CircleNode {
                 $nvmVersions = $matches
             }
             else {
-                $nvmVersions = ""
+                $nvmVersions = @()
             }
-            return @{ Result   =  $nvmVersions.Values }
+            return @{ Result = $nvmVersions.Values }
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
@@ -58,7 +58,7 @@ Configuration CircleNode {
             if ($state.Result -And $state.Result.Contains($using:Version)) {
                 Write-Verbose -Message ('Version {0} present in {1}' -f $using:Version, $($state.Result | Out-String))
                 if ($using:DefaultVersion) {
-                    if ($selectedVersion -eq $using:Version) {
+                    if ($selectedVersion -eq "* $using:Version") {
                         return $true
                         Write-Verbose -Message ('Version {0} selected' -f $selectedVersion)
                     }
