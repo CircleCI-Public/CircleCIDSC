@@ -28,6 +28,7 @@ Configuration CirclePython {
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
+        Params    = '/AddToPath:1'
         Version   = '4.7.10'
     }
 
