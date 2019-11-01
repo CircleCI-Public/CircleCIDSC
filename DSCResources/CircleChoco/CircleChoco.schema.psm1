@@ -34,7 +34,7 @@ refreshenv >$null 2>&1
 
     File Tools {
         Type = 'Directory'
-        DestinationPath = 'C:\Tools'
+        DestinationPath = 'C:\tools'
         Ensure = "Present"
     }
 
