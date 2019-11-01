@@ -84,6 +84,7 @@ try
 
             Describe "yarn" {
                 It "is installed" {
+                    & refreshenv
                     & nvm on
                     $(Get-Command -Name "yarn").Count | Should -Eq 1
                 }
