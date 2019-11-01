@@ -83,20 +83,10 @@ try
                 It "4 versions of the sdk are installed" {
                     $(dotnet --list-sdks).Split([System.Environment]::NewLine).Count | Should -EQ 2
                 }
-                It "12 versions of the runtime are installed" {
-                    $(dotnet --list-runtimes).Split([System.Environment]::NewLine).Count | Should -EQ 9
+                It "6 versions of the runtime are installed" {
+                    $(dotnet --list-runtimes).Split([System.Environment]::NewLine).Count | Should -EQ 6
                 }
             }
-
-            Describe "The visualstudio build tools" {
-                It "is installed" {
-                    "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin" | Should -Exist
-                }
-                It "is on the path" {
-                    $(Get-Command -Name "msbuild").Count | Should -Eq 1
-                }
-            }
-
             Describe "The Windows sdk" {
                 It "is installed" {
                     "$Env:Programfiles (x86)\Windows Kits\10" | Should -Exist

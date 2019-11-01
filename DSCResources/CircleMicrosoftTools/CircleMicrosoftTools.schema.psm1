@@ -42,18 +42,6 @@ Configuration CircleMicrosoftTools {
         Arguments = '/install /quiet /norestart'
     }
 
-    cChocoPackageInstaller visualstudiobuildtools
-    {
-        Name      = "visualstudio2019buildtools-preview"
-        Version   = "16.3.0.40000-preview1"
-        DependsOn = "[CircleChoco]choco"
-    }
-
-    CirclePath vsbuild
-    {
-        PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin'
-    }
-
     cChocoPackageInstaller windowssdk-10-0
     {
         Name      = "windows-sdk-10.0"
@@ -75,6 +63,22 @@ Configuration CircleMicrosoftTools {
             Version   = "16.2.5.0"
             Params    = "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
             DependsOn = "[CircleChoco]choco"
+        }
+        circlePath vswhere
+        {
+            PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\'
+        }
+
+        cChocoPackageInstaller visualstudiobuildtools
+        {
+            Name      = "visualstudio2019buildtools-preview"
+            Version   = "16.3.0.40000-preview1"
+            DependsOn = "[CircleChoco]choco"
+        }
+
+        CirclePath vsbuild
+        {
+            PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin'
         }
     }
 
@@ -103,11 +107,6 @@ Configuration CircleMicrosoftTools {
     circlePath winAppDriver
     {
         PathItem = 'C:\Program Files (x86)\Windows Application Driver'
-    }
-
-    circlePath vswhere
-    {
-        PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\'
     }
 
     cChocoPackageInstaller nuget
