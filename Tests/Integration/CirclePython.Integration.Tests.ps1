@@ -54,7 +54,7 @@ try
                         Wait         = $true
                         Verbose      = $true
                         Force        = $true
-                        ErrorAction  = 'Stop'
+                        ErrorAction  = 'Continue'
                     }
 
                     Start-DscConfiguration @startDscConfigurationParameters
