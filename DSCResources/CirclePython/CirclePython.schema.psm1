@@ -47,12 +47,12 @@ Configuration CirclePython {
             $state = [scriptblock]::Create($GetScript).Invoke()
             if ($state.Result -And $state.Result.Contains($using:EnvName)) {
                 Write-Verbose -Message ('Version {0} present in {1}' -f $using:EnvName, $state.Result)
+                return $True
             }
             else {
                 Write-Verbose -Message ('Version {0} missing in {1}' -f $using:EnvName, $state.Result)
-                return $false
+                return $False
             }
-            return $true
         }
 
         SetScript  = {

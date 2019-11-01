@@ -82,12 +82,12 @@ Configuration CircleNode {
         }
 
         SetScript  = {
-            nvm on
-            nvm install $using:Version
+            & nvm on
+            & nvm install $using:Version
             if ($using:DefaultVersion) {
                 Write-Verbose "setting $using:Version as Default version"
-                nvm use $using:Version
-                npm install -g yarn
+                & nvm use $using:Version
+                & npm install -g yarn
             }
         }
         DependsOn  = '[CirclePath]nvm-symlink-path'
