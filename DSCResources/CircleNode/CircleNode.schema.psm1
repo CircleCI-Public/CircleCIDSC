@@ -39,12 +39,11 @@ Configuration CircleNode {
             $(nvm list) | Where-Object { $_ -match '\d+\.\d+\.\d+' } | write-verbose
             if ($matches) {
                 $nvmVersions = $matches
+                return @{ Result = @{Versions =  $nvmVersions.Values }}
             }
             else {
-                $nvmVersions = @()
+                return @{ Result = @{Versions = @()}}
             }
-            $ofs = ';'
-            return @{ Result = @{Versions =  $nvmVersions.Values }}
         }
         TestScript = {
             $state = [scriptblock]::Create($GetScript).Invoke()
