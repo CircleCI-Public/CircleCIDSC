@@ -261,6 +261,9 @@ workflows:
       - test-one-module:
           name: UsersTests
           module_name: "CircleUsers"
+      - test-one-module:
+          name: NvidiaTests
+          module_name: "CircleNvidia"
       - deploy-module:
           filters:
             branches:
