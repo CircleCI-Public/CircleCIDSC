@@ -57,6 +57,8 @@ try
                 } | Should -Not -Throw
             }
 
+            Update-Paths
+
             It 'Should be able to call Get-DscConfiguration without throwing' {
                 {
                     $script:currentConfiguration = Get-DscConfiguration -Verbose -ErrorAction Stop
@@ -71,18 +73,19 @@ try
 
                 $resourceCurrentState.Property | Should -Be $ConfigurationData.AllNodes.Property1
             }
-            Update-Paths
             Describe "NVM" {
                 It "is installed" {
                     $(Get-Command -Name "nvm").Count | Should -Eq 1
                 }
                 It "has node 12 installed and set to default" {
-                    $(nvm list)[1] | Should -Match "\* 12.11.1"
+                    $(nvm list)[1] | Should -Match "12.11.1"
                 }
             }
 
             Describe "yarn" {
                 It "is installed" {
+                    & refreshenv
+                    & nvm on
                     $(Get-Command -Name "yarn").Count | Should -Eq 1
                 }
             }

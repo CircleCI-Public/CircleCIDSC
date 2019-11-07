@@ -33,17 +33,18 @@ Configuration CircleCloudTools {
         InstallationPolicy ="Trusted"
     }
 
-    PackageManagement ServiceFabric
-    {
-        Name            = "Microsoft.ServiceFabric"
-        RequiredVersion = "6.5.664"
-        DependsOn       = "[PackageManagementSource]Nuget"
-    }
+    # This does get install by the Service fabric SDK
+#    PackageManagement ServiceFabric
+#    {
+#        Name            = "Microsoft.ServiceFabric"
+#        RequiredVersion = "6.5.664"
+#        DependsOn       = "[PackageManagementSource]Nuget"
+#    }
+
 
     cChocoPackageInstaller ServiceFabricSDK
     {
-        Name      = "MicrosoftAzure-ServiceFabric-CoreSDK"
-        Source    = "webpi"
-        DependsOn = "[cChocoPackageInstaller]webpicmd"
+        Name      = "service-fabric-sdk"
+        DependsOn = "[CircleChoco]choco"
     }
 }

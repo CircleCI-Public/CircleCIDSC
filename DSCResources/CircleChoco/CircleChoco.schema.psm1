@@ -32,6 +32,12 @@ refreshenv >$null 2>&1
         Contents        = $ImportHelpers
     }
 
+    File Tools {
+        Type = 'Directory'
+        DestinationPath = 'C:\tools'
+        Ensure = "Present"
+    }
+
     Script SetProfileACL {
         GetScript  = {
             $TargetAcl = Get-Acl "C:\Users\$using:CircleCIUser\Documents"
@@ -41,8 +47,8 @@ refreshenv >$null 2>&1
             return @{
                 Result = @{
                     PsmAcl     = $PowerShellModuleAcl;
-                    ProfileAcl = $ProfileAcl
-                    TargetAcl  = $TargetAcl
+                    ProfileAcl = $ProfileAcl;
+                    TargetAcl  = $TargetAcl;
                 }
             }
         }

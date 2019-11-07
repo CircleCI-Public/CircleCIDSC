@@ -64,11 +64,11 @@ jobs:
             git clone --branch dev https://github.com/PowerShell/DscResource.Tests
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
-            $null = New-DscSelfSignedCertificate
       - run:
           name: test all modules
           shell: powershell.exe
           command: |
+            . C:\Users\CircleCI\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
             $ProgressPreference = "SilentlyContinue"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
@@ -88,84 +88,11 @@ jobs:
                   Write-Output $ErrorStackTrace
 
             }
-
+            $null = New-DscSelfSignedCertificate
             Get-ChildItem -Path Tests/Integration/*.ps1 | where Name -NotMatch '<< parameters.module_name >>'  | ForEach-Object{Remove-Item -Force -LiteralPath $_}
             Invoke-AppveyorTestScriptTask
-
-  test-module:
-    executor: windows
-    working_directory: "~/CircleCIDSC"
-    steps:
-      - checkout:
-          path: "~/CircleCIDSC"
-      - run:
-          name: fix pester
-          shell: powershell.exe
-          command: |
-            $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
-            takeown /F $module /A /R
-            icacls $module /reset
-            icacls $module /grant Administrators:'F' /inheritance:d /T
-            Remove-Item -Path $module -Recurse -Force -Confirm:$false
-
-            $module = "C:\Program Files (x86)\WindowsPowerShell\Modules\Pester"
-            takeown /F $module /A /R
-            icacls $module /reset
-            icacls $module /grant Administrators:'F' /inheritance:d /T
-            Remove-Item -Path $module -Recurse -Force -Confirm:$false
-
-            Install-Module -Name Pester -Force -RequiredVersion 4.9.0
-            Update-Module -Name Pester
-      - run:
-          name: install deps
-          shell: powershell.exe
-          command: |
-            $ProgressPreference = "SilentlyContinue"
-            winrm quickconfig -quiet
-            Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-            Set-PSRepository -InstallationPolicy Trusted -Name PSGallery
-            & mkdir 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
-            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-            Invoke-WebRequest -Uri 'http://github.com/chocolatey/cChoco/archive/development.zip' -OutFile 'C:\cChoco.zip'
-            Expand-Archive -LiteralPath 'C:\cChoco.zip' -DestinationPath 'C:\\'
-            Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
-            Install-Module -Name ComputerManagementDsc -Force
-            Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
-      - run:
-          name: grab the tests module
-          shell: powershell.exe
-          command: |
-            cd ..
-            $ProgressPreference = "SilentlyContinue"
-            git clone --branch dev https://github.com/PowerShell/DscResource.Tests
-            $moduleName = "CircleCIDSC"
-            import-module ..\DscResource.Tests\AppVeyor.psm1
-            $null = New-DscSelfSignedCertificate
-      - run:
-          name: test all modules
-          shell: powershell.exe
-          command: |
-            $ProgressPreference = "SilentlyContinue"
-            $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
-            $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
-            $env:APPVEYOR=$true
-            $env:CONFIGURATION='Integration'
-            $moduleName = "CircleCIDSC"
-            import-module ..\DscResource.Tests\AppVeyor.psm1
-            function Add-AppveyorTest {
-                  [cmdletbinding()]
-                  param ($Name, $Framework, $Filename, $Outcome, $Duration, $ErrorMessage, $ErrorStackTrace)
-                  Write-Output $Name
-                  Write-Output $Framework
-                  Write-Output $Filename
-                  Write-Output $Outcome
-                  Write-Output $Duration
-                  Write-Output $ErrorMessage
-                  Write-Output $ErrorStackTrace
-
-            }
-            Invoke-AppveyorTestScriptTask
-
+      - store_artifacts:
+          path: C:\ProgramData\chocolatey\logs\chocolatey.log
 
   deploy-module:
     executor: windows
