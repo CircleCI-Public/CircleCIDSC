@@ -4,9 +4,23 @@ Windows Powershell DSC
 
 # Community CircleCI DSC Resource
 
-This resource is aimed at people who would like to make a build environment compatible with CircleCI for windows. An example config with all of the software we include on our windows iamge for cloud looks like this.
+This resource is aimed at people who would like to make a build environment compatible with CircleCI for windows. An example config with all of the software we include on our windows iamge for cloud looks like this. A full example including setting up all the packages needed is below.
 
 ```pwsh
+Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 00000000 -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Write-Host "Setting local execution policy"
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine  -ErrorAction Continue | Out-Null
+Get-ExecutionPolicy -List
+Set-PSRepository -InstallationPolicy Trusted -Name PSGallery
+& mkdir 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
+Invoke-WebRequest -Uri 'https://github.com/chocolatey/cChoco/archive/development.zip' -OutFile 'C:\cChoco.zip'
+Expand-Archive -LiteralPath 'C:\cChoco.zip' -DestinationPath 'C:\\'
+Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
+Install-Module -Name ComputerManagementDsc -Force
+Install-Module -Name CircleCIDSC -RequiredVersion 1.0.879 -Force
+Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
+
 Configuration CircleBuildHost {
     Import-DscResource -Module CircleDscResources
     Import-DscResource -Module cChoco
@@ -26,6 +40,17 @@ Configuration CircleBuildHost {
         CircleMicrosoftTools MicrosoftTools { }
     }
 }
+
+$cd = @{
+    AllNodes = @(
+        @{
+            NodeName                    = 'localhost'
+            PSDscAllowPlainTextPassword = $true
+        }
+    )
+}
+CircleBuildHost -ConfigurationData $cd
+Start-DscConfiguration -Path .\CircleBuildHost  -Wait -Force -Verbose
 ```
 Included are resources are:
 
