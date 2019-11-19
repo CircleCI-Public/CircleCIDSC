@@ -1,0 +1,165 @@
+version: 2.1
+
+executors:
+  packer:
+    docker:
+      - image: hashicorp/packer:latest
+
+commands:
+    ensure_path:
+    description: "Ensures that the provided path exists"
+    parameters:
+      path:
+        type: string
+    steps:
+      - run:
+          name: ensure << parameters.path >> exists
+          command: mkdir -p << parameters.path >>
+
+jobs:
+  gc_old_ec2_instances:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run: sudo pip3 install awscli
+      - run: sudo apt-get update && sudo apt-get install jq
+      - run: scripts/gc-ec2-instances.sh
+          
+  build_image:
+    executor: packer
+    parameters:
+      packer_provider:
+        type: enum
+        enum: ["amazon-ebs" ]
+      path:
+        type: string
+      build_if_changed:
+        type: string
+        description: "Build if files under this path have changed since the last build"
+      output_as:
+        type: string
+        default: ""
+        description: "An alias to describe the image that we are creating in this job. This is used by downstream jobs in the same workflow."
+      build_from:
+        type: string
+        default: ""
+        description: "An alias to describe the image that we are basing this one on. This should correspond to the output_as parameter used by some upstream job in the workflow."
+      vars:
+        type: string
+        default: ""
+        description: "Override additional vars during this packer build. Should be space-separated 'k=v' pairs."
+
+    steps:
+      - checkout
+      - run: apk update
+      - run: apk add --no-progress python3 curl jq
+      - run: pip3 install awscli
+      - attach_workspace:
+          at: /tmp/workspace
+      - ensure_path:
+          path: "/tmp/artifacts/"
+      - yaml_to_json:
+          yaml_file: "<< parameters.path >>/packer.yaml"
+          json_file: "<< parameters.path >>/packer.json"
+      - run: mkdir /tmp/results
+      - run:
+          name: Build images
+          no_output_timeout: 120m
+          environment:
+            # The AMI can take a very long time to be ready. These env
+            # vars make packer wait 2 hours for this to happen before
+            # giving up.
+            AWS_MAX_ATTEMPTS: 120
+            AWS_POLL_DELAY_SECONDS: 60
+          command: |
+            MONOREPO_CONTENT_SHA="$(./scripts/get_content_sha << parameters.build_if_changed >>)"
+            if [[ "<< parameters.build_from >>" ]]; then
+              echo Fetching the output image of << parameters.build_from >>
+              SOURCE_IMAGE=$(cat /tmp/workspace/<< parameters.build_from >>)
+              echo Using $SOURCE_IMAGE as the base image
+              SOURCE_IMAGE_VAR="--var source_image=$SOURCE_IMAGE"
+            fi
+            [[ $CIRCLE_BRANCH != master ]] && IMAGE_FAMILY_SUFFIX="-dev"
+
+            WINDOWS_USER="Administrator"
+
+            ./scripts/get_last_image << parameters.packer_provider >> "${MONOREPO_CONTENT_SHA}" "${CIRCLE_JOB}" && {
+                echo "<< parameters.packer_provider >> image with monorepo_content_sha = ${MONOREPO_CONTENT_SHA} and circle_job_name = ${CIRCLE_JOB} already exists. Skipping build"
+              } || packer build \
+              -machine-readable \
+              --only << parameters.packer_provider >> \
+              --var monorepo_content_sha="${MONOREPO_CONTENT_SHA}" \
+              --var image_family_suffix="${IMAGE_FAMILY_SUFFIX}" \
+              --var ami_region="us-east-1" \
+              --var windows_user="${WINDOWS_USER}" \
+              --var test_results_path="/tmp/results/test-results.xml" \
+              ${SOURCE_IMAGE_VAR} \
+              << parameters.vars >> \
+              << parameters.path >>/packer.json | tee /tmp/artifacts/<< parameters.packer_provider >>-build.log
+      - run:
+          name: Summarize results
+          command: |
+            BUILD_LOG_PATH="/tmp/artifacts/<< parameters.packer_provider >>-build.log"
+            if [[ -f $BUILD_LOG_PATH ]]; then
+              IMAGE_NAME=$(grep 'artifact,0,id' "${BUILD_LOG_PATH}" | cut -d, -f6 | cut -d: -f2 || echo '')
+              echo Recording just-built image $IMAGE_NAME as the output of this job
+            else
+              MONOREPO_CONTENT_SHA="$(./scripts/get_content_sha << parameters.build_if_changed >>)"
+
+              IMAGE_NAME=$(./scripts/get_last_image << parameters.packer_provider >> "${MONOREPO_CONTENT_SHA}" "${CIRCLE_JOB}")
+              echo Nothing to build, recording previously-built image $IMAGE_NAME as the output of this job
+            fi
+
+            echo "Image ${IMAGE_NAME} is the latest image with content SHA ${MONOREPO_CONTENT_SHA}."
+            
+            if [[ -n "<< parameters.output_as >>" ]]; then
+              echo $IMAGE_NAME | tee /tmp/artifacts/<< parameters.output_as >>
+            else
+              echo "output_as orb parameter is not set. $IMAGE_NAME will not be recorded as the output of this job."
+            fi
+      - run:
+          name: Copy image to regions
+          command: |
+            if [[ $CIRCLE_BRANCH == master ]]; then
+              ./scripts/copy-ami-to-regions.sh << parameters.build_if_changed >> ${CIRCLE_JOB} us-east-1
+            else
+              echo 'Branch is not master. Copying will be skipped.'
+            fi
+
+      - persist_to_workspace:
+          root: /tmp/artifacts
+          paths:
+            - << parameters.output_as >>
+      - run:
+          name: save test results if there are any
+          command: | 
+            if [[ -f /tmp/results/test-results.xml ]]; then
+              cp /tmp/results/test-results.xml /tmp/artifacts
+            fi
+
+      - store_test_results:
+          path: /tmp/results
+
+      - store_artifacts:
+          path: /tmp/artifacts
+
+workflows:
+  build_all_images:
+    jobs:
+      - build_image:
+          name: windows_visualstudio_aws
+          path: "windows/visual-studio"
+          build_if_changed: "windows"
+          packer_provider: "amazon-ebs"
+
+  daily:
+    jobs:
+      - gc_old_ec2_instances
+    triggers:
+      - schedule:
+          cron: "17 12 * * *"
+          filters:
+            branches:
+              only:
+                - master
