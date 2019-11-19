@@ -70,7 +70,7 @@ CircleCI is used to package up the resource and publish to the PowerShell Galler
 
 ### WS-Management - Exceeds the maximum envelope size allowed
 
-The maximum envelope size for WinRM is not sufficient for installing large packages. To increase the envelope size use `winrm set winrm/config @{MaxEnvelopeSizekb=”153600″}` - this exampe will increase it to 150MB.
+The maximum envelope size for WinRM is not sufficient for installing large packages. To increase the envelope size use `winrm set winrm/config @{MaxEnvelopeSizekb=”153600″}` - this exampe will increase it to 150MB. The PackerExample repo has an example of this.
 
 ### Python DSC resource - Has to be run twice
 
@@ -78,3 +78,23 @@ There is an open bug with our python resource that causes it to have issues gett
 
 ### Many Reboots required
 Currently we observe that 3 reboots are required to finish our standard configuration. DSC handles resuming gracefully so no user intervention is needed. Just good to be aware of.
+
+### Code signing and authenticated sessions
+When the build agent sshs into the build it lacks the credentials that would typically be present in a windows environement, consequently some work arounds may be helpful for privilaged operations.
+
+The simpliest way to do so is to simply reset the password of the CircleCI user and create a set of powershell credentials then do the operation in a more privilaged subshell.
+
+```pwsh
+Add-Type -AssemblyName System.web
+$raw_password = [System.Web.Security.Membership]::GeneratePassword(42, 10)
+$password = ConvertTo-SecureString $raw_password -AsPlainText -Force
+Set-LocalUser -Name "circleci" -Password $password
+$username = "circleci"
+$cred = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $password
+Start-Job -Credential $cred -ScriptBlock { # Certificate publisher
+  #Do privilaged operation here
+}
+
+```
+
+
