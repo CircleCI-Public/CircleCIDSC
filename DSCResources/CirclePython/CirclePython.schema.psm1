@@ -17,14 +17,6 @@ Configuration CirclePython {
     Import-DscResource -Module cChoco
     CircleChoco choco { }
 
-    File miniconda {
-        Type = 'Directory'
-        DestinationPath = 'C:\tools\miniconda3'
-        Ensure = "Present"
-        DependsOn = '[CircleChoco]choco'
-    }
-
-
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
@@ -32,12 +24,11 @@ Configuration CirclePython {
         # For some reason the miniconda3 install wants to get the
         # parent directory of where it's being isnstalled
         # this C:\ is despite what it looks like not a directory
-        Params    = '/D:c:\Tools\miniconda3\'
         Version   = '4.6.14'
     }
 
     CirclePath pythonPath {
-        PathItem = "C:\tools\miniconda3\miniconda3\condabin"
+        PathItem = "C:\miniconda3\miniconda3\condabin"
         DependsOn = '[cChocoPackageInstaller]miniconda3'
     }
 
@@ -48,7 +39,7 @@ Configuration CirclePython {
             $matches = $null
             # TODO: THIS IS STILL BROKEN, Currently it grabs the path to the python as well as the name
             # But the DSC still gets the job done.
-            $envs = $(C:\tools\miniconda3\miniconda3\condabin\conda env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
+            $envs = $(C:\miniconda3\miniconda3\condabin\conda env list) | Where-Object { $_ -Match "python\d+(\.\d+)?" }
             $pythonVersions = @()
             if ($envs) {
                 $pythonVersions = $envs
@@ -69,11 +60,11 @@ Configuration CirclePython {
         }
 
         SetScript  = {
-            & 'C:\tools\miniconda3\miniconda3\condabin\conda' update -y -n base -c defaults conda
-            & 'C:\tools\miniconda3\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip
+            & 'C:\miniconda3\miniconda3\condabin\conda' update -y -n base -c defaults conda
+            & 'C:\miniconda3\miniconda3\condabin\conda' create -y -n $using:EnvName python=$using:Version pip
             if ( $using:DefaultVersion ) {
-                & 'C:\tools\miniconda3\miniconda3\condabin\conda' config --set changeps1 false
-                & 'C:\tools\miniconda3\miniconda3\condabin\conda' init
+                & 'C:\miniconda3\miniconda3\condabin\conda' config --set changeps1 false
+                & 'C:\miniconda3\miniconda3\condabin\conda' init
             }
         }
         DependsOn  = '[CirclePath]pythonPath'
