@@ -23,6 +23,7 @@ if (Test-Path($ChocolateyProfile)) {
     Import-Module $ChocolateyProfile
 }
 refreshenv >$null 2>&1
+
 '@
 
     $CircleCIProfile = "C:\Users\$CircleCIUser\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
