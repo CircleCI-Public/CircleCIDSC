@@ -19,6 +19,7 @@ Configuration CircleMicrosoftTools_Integration_Config
         CircleMicrosoftTools 'Integration_Test' {
             InstallVS=$False
             InstallDotNet=$False
+            InstallWinAppDriver=$False
          }
     }
 }
