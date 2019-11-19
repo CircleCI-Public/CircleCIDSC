@@ -6,7 +6,11 @@ Configuration CircleMicrosoftTools {
 
         # DotNet has to have a restart, this won't work for testing
         [System.Boolean]
-        $InstallDotNet=$True
+        $InstallDotNet=$True,
+
+        # WinAppDriver needs a restart, this won't work for testing
+        [System.Boolean]
+        $InstallWinAppDriver=$True
     )
 
 
@@ -85,16 +89,19 @@ Configuration CircleMicrosoftTools {
         ValueType = "DWORD"
         ValueData = "1"
     }
-    Package InstallWinAppDriver
-    {
-        Name      = 'Windows Application Driver'
-        Path      = "https://github.com/Microsoft/WinAppDriver/releases/download/v1.1/WindowsApplicationDriver.msi"
-        ProductId = "C4903086-429C-4455-86DD-044914BBA07B"
-    }
 
-    circlePath winAppDriver
-    {
-        PathItem = 'C:\Program Files (x86)\Windows Application Driver'
+    if ($InstallWinAppDriver) {
+      Package InstallWinAppDriver
+      {
+          Name      = 'Windows Application Driver'
+          Path      = "https://github.com/Microsoft/WinAppDriver/releases/download/v1.1/WindowsApplicationDriver.msi"
+          ProductId = "C4903086-429C-4455-86DD-044914BBA07B"
+      }
+
+      circlePath winAppDriver
+      {
+          PathItem = 'C:\Program Files (x86)\Windows Application Driver'
+      }
     }
 
     cChocoPackageInstaller nuget
