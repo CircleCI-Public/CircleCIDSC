@@ -122,4 +122,6 @@ Start-Job -Credential $cred -ScriptBlock { # Certificate publisher
 
 ```
 
+### cChoco Development version
+For some reason the cChoco DSC resource has not been updated on the powershell gallery in quite some time. The development version has some needed parameters so we use that.
 
