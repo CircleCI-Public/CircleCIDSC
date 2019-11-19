@@ -2,7 +2,7 @@
 Windows Powershell DSC
 
 
-# Community CircleCI DSC Resourc
+# Community CircleCI DSC Resource
 
 This resource is aimed at people who would like to make a build environment compatible with CircleCI for windows. An example config with all of the software we include on our windows iamge for cloud looks like this.
 
