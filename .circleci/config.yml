@@ -171,9 +171,6 @@ workflows:
           name: CloudToolsTests
           module_name: "CircleCloudTools"
       - test-one-module:
-          name: DevToolsTests
-          module_name: "CircleDevTools"
-      - test-one-module:
           name: MicrosoftToolsTests
           module_name: "CircleMicrosoftTools"
       - test-one-module:
@@ -182,9 +179,6 @@ workflows:
       - test-one-module:
           name: PathTests
           module_name: "CirclePath"
-      - test-one-module:
-          name: PythonTests
-          module_name: "CirclePython"
       - test-one-module:
           name: UsersTests
           module_name: "CircleUsers"
