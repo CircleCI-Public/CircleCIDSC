@@ -10,9 +10,7 @@ Configuration CircleMicrosoftTools {
 
         # WinAppDriver needs a restart, this won't work for testing
         [System.Boolean]
-        $InstallWinAppDriver=$True,
-
-
+        $InstallWinAppDriver=$True
     )
 
 
