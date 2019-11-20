@@ -20,10 +20,7 @@ Configuration CirclePython {
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
-        # This is going to install it in a subdirectory.
-        # For some reason the miniconda3 install wants to get the
-        # parent directory of where it's being isnstalled
-        # this C:\ is despite what it looks like not a directory
+        Params    = '/AddToPath:1'
         Version   = '4.6.14'
     }
 
