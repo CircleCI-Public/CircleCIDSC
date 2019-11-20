@@ -40,7 +40,7 @@ builders:
       circle_sha: '{{ user "circle_sha" }}'
       monorepo_content_sha: '{{ user "monorepo_content_sha" }}'
       
-  provisioners:
+provisioners:
   - type: file
     source: "windows/ImageHelpers"
     destination: "{{user `helper_script_folder`}}"

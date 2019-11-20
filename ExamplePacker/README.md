@@ -18,6 +18,9 @@ This folder contains everythign you will need to build a windows image with the 
 
 
 ## TO SETUP
-* You need to add your aws keys as env vars to the build job
+* You need to add your aws keys as env vars to the build job in the circle CI use
+  * AWS_ACCESS_KEY_ID	    xxxxP6BQ	
+***  * AWS_DEFAULT_REGION	xxxxst-1	
+  * AWS_SECRET_ACCESS_KEY	xxxxGYD9
 * You will need to update the owner in `windows/visual-studio/packer.yaml`
 
