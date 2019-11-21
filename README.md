@@ -1,6 +1,31 @@
 # Community CircleCI DSC Resource
 
-This resource is aimed at people who would like to make a build environment compatible with CircleCI for windows. An example config with all of the software we include on our windows iamge for cloud looks like this. A full example including setting up all the packages needed is below.
+## What is DSC
+
+DSC is a system built by Microsoft and included with powershell <4.0.
+DSC allows you to express the desired state you would like your windows system
+to configure its self into. It works in a similar way to chef or ansible. Much of
+windows can be directly configured with supported DSC resources, thereby reducing
+the amount of tribal knowledge one needs to know to interact with the more advanced
+bits of windows internals. To learn more about DSC checkout:
+
+* https://docs.microsoft.com/en-us/powershell/scripting/dsc/overview/overview?view=powershell-6
+* https://octopus.com/blog/getting-started-with-powershell-dsc
+
+DSC modules can also easily be found in the powershell gallery:
+
+* https://www.powershellgallery.com/packages?q=Tags%3A%22DSC%22
+
+Best practices for DSC can be found here:
+
+* https://github.com/PowerShell/DscResources/blob/master/StyleGuidelines.md
+
+The same repo provides some excellent starting templates for building new resources as well as
+reference tests.
+
+This resource is aimed at people who would like to make a build environment
+compatible with CircleCI for windows. A full example including setting up
+all the packages needed is below.
 
 ```pwsh
 Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 00000000 -Force
@@ -55,7 +80,7 @@ Included are resources are:
 * CircleCloudTools, for installing aws, azure, and gcp tooling.
 * CircleDevTools, for installing ruby, node, python (there are some cavets with python), and a varity of common tools.
 * CircleMicrosoftTools, for installing visual studio, .net, the windows sdk, winAppDriver
-* CircleNvidia, for installing nvidia drivers and cuda. 
+* CircleNvidia, for installing nvidia drivers and cuda.
 * CirclePython, for installing python, can be parametrized with version, and if it should be the default installation. Uses miniconda to manage versions.
 * CircleNode,   for installing node, can be parametrized with version and if it should be the default version. Uses nvm to manage versions.
 * CirclePath,   Will ensure that a value is present once on the machine path.
