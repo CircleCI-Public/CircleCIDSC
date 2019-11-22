@@ -15,12 +15,10 @@ This folder contains everythign you will need to build a windows image with the 
 * Installs the SSH server and enables the cleanup script that runs on shutdown (check out the aws packer scripts for exactly *how* that works).
 * Creates an image.
 
-
-
 ## TO SETUP
-* You need to add your aws keys as env vars to the build job in the circle CI use
-  * AWS_ACCESS_KEY_ID	    xxxxP6BQ	
-***  * AWS_DEFAULT_REGION	xxxxst-1	
-  * AWS_SECRET_ACCESS_KEY	xxxxGYD9
-* You will need to update the owner in `windows/visual-studio/packer.yaml`
+add your aws keys as env vars to the build job in the circle CI use
+  * AWS_ACCESS_KEY_ID	    
+***  * AWS_DEFAULT_REGION		
+  * AWS_SECRET_ACCESS_KEY
+update the owner in `windows/visual-studio/packer.yaml` if the account that the keys that you configured not shared with the account your circleci server deploy is in.
 

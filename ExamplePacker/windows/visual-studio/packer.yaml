@@ -18,7 +18,7 @@ builders:
         virtualization-type: "hvm"
         root-device-type: "ebs"
         name: "Windows_Server-2019-English-Full-ContainersLatest-*"
-      owners: ["801119661308"] # THIS VALUE NEEDS TO BE UPDATED BY THE CUSTOMER
+      owners: ["self"]
       most_recent: true
     instance_type: "m5.2xlarge"
     ami_name: "windows-server-2019-vs2019-{{timestamp}}"
