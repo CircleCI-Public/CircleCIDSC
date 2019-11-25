@@ -2,6 +2,14 @@
 
 This folder contains everythign you will need to build a windows image with the circleCI dsc resources on circleCI.
 
+
+## To Setup on circleCI
+Add your aws keys as env vars to the build job in the CircleCI using:
+  * AWS_ACCESS_KEY_ID	    
+  * AWS_DEFAULT_REGION		
+  * AWS_SECRET_ACCESS_KEY
+U&pdate the owner in `windows/visual-studio/packer.yaml` if the account that the keys that you configured not shared with the account your circleci server deploy is in.
+
 ## What the packer job in this build does
 * Sets up winrm
 * Adds scripts for removing winrm when we are ready to clean up
@@ -15,10 +23,4 @@ This folder contains everythign you will need to build a windows image with the 
 * Installs the SSH server and enables the cleanup script that runs on shutdown (check out the aws packer scripts for exactly *how* that works).
 * Creates an image.
 
-## TO SETUP
-add your aws keys as env vars to the build job in the circle CI use
-  * AWS_ACCESS_KEY_ID	    
-  * AWS_DEFAULT_REGION		
-  * AWS_SECRET_ACCESS_KEY
-update the owner in `windows/visual-studio/packer.yaml` if the account that the keys that you configured not shared with the account your circleci server deploy is in.
 
