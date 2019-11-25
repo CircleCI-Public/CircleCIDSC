@@ -18,7 +18,7 @@ This folder contains everythign you will need to build a windows image with the 
 ## TO SETUP
 add your aws keys as env vars to the build job in the circle CI use
   * AWS_ACCESS_KEY_ID	    
-***  * AWS_DEFAULT_REGION		
+  * AWS_DEFAULT_REGION		
   * AWS_SECRET_ACCESS_KEY
 update the owner in `windows/visual-studio/packer.yaml` if the account that the keys that you configured not shared with the account your circleci server deploy is in.
 
