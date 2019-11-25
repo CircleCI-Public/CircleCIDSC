@@ -20,8 +20,7 @@ Best practices for DSC can be found here:
 
 * https://github.com/PowerShell/DscResources/blob/master/StyleGuidelines.md
 
-The same repo provides some excellent starting templates for building new resources as well as
-reference tests.
+The same repo provides some excellent starting templates for building new resources as well as reference tests.
 
 This resource is aimed at people who would like to make a build environment
 compatible with CircleCI for windows. A full example including setting up
