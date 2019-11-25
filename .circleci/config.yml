@@ -25,6 +25,10 @@ jobs:
       - run:
           name: fix pester
           shell: powershell.exe
+          # 1. Pester is real old by default, and we want to update it
+          # 2. For some reason, the built-in Pester exists in two different directories
+          # 3. So to actually update it, we first have to delete both of them
+          # 4. But deleting them requires some messy ownership commands
           command: |
             $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
             takeown /F $module /A /R
@@ -37,6 +41,8 @@ jobs:
             icacls $module /reset
             icacls $module /grant Administrators:'F' /inheritance:d /T
             Remove-Item -Path $module -Recurse -Force -Confirm:$false
+
+            # Also remove these sample pester tests so we don't try to run them
             Remove-Item -Path 'C:\Users\circleci\CircleCIDSC\ExamplePacker' -Recurse -Force -Confirm:$false
 
             Install-Module -Name Pester -Force -RequiredVersion 4.9.0
@@ -55,6 +61,8 @@ jobs:
             Expand-Archive -LiteralPath 'C:\cChoco.zip' -DestinationPath 'C:\\'
             Copy-Item -Path 'C:\cChoco-development\*' -Recurse -Destination 'C:\Program Files\WindowsPowerShell\Modules\cChoco\'
             Install-Module -Name ComputerManagementDsc -Force
+
+            # Life hack: use `Set-Item` to adjust WinRM settings so it doesn't yell about permissions
             Set-Item -Path WSMan:\localhost\MaxEnvelopeSizeKb -Value 512000
       - run:
           name: grab the tests module
@@ -89,10 +97,13 @@ jobs:
                   Write-Output $ErrorStackTrace
 
             }
+            # Life hack: use a self-signed certificate (even though it isn't actually more secure than no certificate) to avoid security-related warnings during tests
             $null = New-DscSelfSignedCertificate
+            # Delete all irrelevant test files (because the test script will try to run everything it sees)
             Get-ChildItem -Path Tests/Integration/*.ps1 | where Name -NotMatch '<< parameters.module_name >>'  | ForEach-Object{Remove-Item -Force -LiteralPath $_}
             Invoke-AppveyorTestScriptTask
       - store_artifacts:
+          # This contains "delightful information about why things exploded" ~ eric
           path: C:\ProgramData\chocolatey\logs\chocolatey.log
 
   deploy-module:
@@ -186,6 +197,9 @@ workflows:
       - test-one-module:
           name: NvidiaTests
           module_name: "CircleNvidia"
+      - test-one-module:
+          name: TDRTests
+          module_name: "CircleTDR"
       - deploy-module:
           filters:
             branches:
