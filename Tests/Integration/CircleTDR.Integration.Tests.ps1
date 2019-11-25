@@ -4,7 +4,7 @@ param()
 Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
 
 $script:dscModuleName = 'CircleCIDSC'
-$script:dscResourceFriendlyName = 'CirclePython'
+$script:dscResourceFriendlyName = 'CircleTDR'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
 #region HEADER
