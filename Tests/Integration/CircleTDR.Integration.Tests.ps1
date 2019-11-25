@@ -78,7 +78,7 @@ try
 
             It 'Set the registry key' {
                 $(Get-Item HKLM:\System\CurrentControlSet\Control\GraphicsDrivers).GetValue("TdrLevel") | Should -Be 0
-                $(Get-Item HKLM:\System\CurrentControlSet\Control\GraphicsDrivers).GetValueKind("TdrLevel") | Should -Be [Microsoft.Win32.RegistryValueKind]::DWord
+                $(Get-Item HKLM:\System\CurrentControlSet\Control\GraphicsDrivers).GetValueKind("TdrLevel") | Should -Be DWord
             }
 
             It 'Should return $true when Test-DscConfiguration is run' {
