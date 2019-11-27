@@ -1,1 +1,0 @@
-Invoke-Pester "C:\tests\validation-scripts" -OutputFormat JUnitXml -OutputFile "C:\test-results.xml"
