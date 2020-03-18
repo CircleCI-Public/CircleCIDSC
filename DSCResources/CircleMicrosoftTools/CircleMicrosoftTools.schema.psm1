@@ -61,7 +61,7 @@ Configuration CircleMicrosoftTools {
             SetScript = {
                vsregedit.exe set "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community" HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
             }
-            TestScript = { False }
+            TestScript = { return $False }
             GetScript = { @{ Result = "" } }
             DependsOn = "cChocoPackageInstaller]visualStudio"
         }
