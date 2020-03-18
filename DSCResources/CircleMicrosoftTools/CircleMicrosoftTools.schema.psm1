@@ -55,6 +55,17 @@ Configuration CircleMicrosoftTools {
             Params    = "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
             DependsOn = "[CircleChoco]choco"
         }
+        
+        Script DisableUpdates
+        {
+            SetScript = {
+               vsregedit.exe set "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community" HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
+            }
+            TestScript = { False }
+            GetScript = { @{ Result = "" } }
+            DependsOn = "cChocoPackageInstaller]visualStudio"
+        }
+        
         circlePath vswhere
         {
             PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\'
