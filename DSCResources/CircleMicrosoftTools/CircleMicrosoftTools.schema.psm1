@@ -59,7 +59,11 @@ Configuration CircleMicrosoftTools {
         Script DisableUpdates
         {
             SetScript = {
-               vsregedit.exe set "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community" HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
+                $vsWherePath = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
+                $vsVersion = "[15.0,16.0)"
+                $installPath = &$vsWherePath -all -latest -version $vsVersion -property installationPath
+                $vsregedit = Join-Path $installPath 'Common7\IDE\vsregedit.exe'
+                &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
             }
             TestScript = { return $False }
             GetScript = { @{ Result = "" } }
