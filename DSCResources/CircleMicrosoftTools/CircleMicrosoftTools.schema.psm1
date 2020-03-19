@@ -63,7 +63,7 @@ Configuration CircleMicrosoftTools {
             }
             TestScript = { return $False }
             GetScript = { @{ Result = "" } }
-            DependsOn = "cChocoPackageInstaller]visualStudio"
+            DependsOn = "[cChocoPackageInstaller]visualStudio"
         }
         
         circlePath vswhere
