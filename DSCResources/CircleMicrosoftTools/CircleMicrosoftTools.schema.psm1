@@ -60,8 +60,7 @@ Configuration CircleMicrosoftTools {
         {
             SetScript = {
                 $vsWherePath = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
-                $vsVersion = "[15.0,16.0)"
-                $installPath = &$vsWherePath -all -latest -version $vsVersion -property installationPath
+                $installPath = &$vsWherePath -all -latest -property installationPath
                 $vsregedit = Join-Path $installPath 'Common7\IDE\vsregedit.exe'
                 &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
             }
