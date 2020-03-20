@@ -52,21 +52,8 @@ Configuration CircleMicrosoftTools {
         {
             Name      = "visualstudio2019community"
             Version   = "16.3.6.0"
-            Params    = "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
+            Params    = "--allWorkloads --includeRecommended --includeOptional --passive --noUpdateInstaller --locale en-US"
             DependsOn = "[CircleChoco]choco"
-        }
-        
-        Script DisableUpdates
-        {
-            SetScript = {
-                $vsWherePath = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
-                $installPath = &$vsWherePath -all -latest -property installationPath
-                $vsregedit = Join-Path $installPath 'Common7\IDE\vsregedit.exe'
-                &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
-            }
-            TestScript = { return $False }
-            GetScript = { @{ Result = "" } }
-            DependsOn = "[cChocoPackageInstaller]visualStudio"
         }
         
         circlePath vswhere
@@ -77,7 +64,7 @@ Configuration CircleMicrosoftTools {
         cChocoPackageInstaller visualstudiobuildtools
         {
             Name      = "visualstudio2019buildtools-preview"
-            Version   = "16.3.0.40000-preview1"
+            Version   = "16.3.6.0"
             DependsOn = "[CircleChoco]choco"
         }
 
