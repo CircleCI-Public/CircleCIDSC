@@ -63,7 +63,7 @@ Configuration CircleMicrosoftTools {
 
         cChocoPackageInstaller visualstudiobuildtools
         {
-            Name      = "visualstudio2019buildtools-preview"
+            Name      = "visualstudio2019buildtools"
             Version   = "16.3.6.0"
             DependsOn = "[CircleChoco]choco"
         }
