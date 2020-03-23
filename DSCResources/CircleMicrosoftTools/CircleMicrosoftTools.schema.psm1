@@ -67,6 +67,20 @@ Configuration CircleMicrosoftTools {
             Version   = "16.3.6.0"
             DependsOn = "[CircleChoco]choco"
         }
+        
+        Script DisableUpdates
+        {
+            SetScript = {
+                $vsWherePath = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
+                $installPath = &$vsWherePath -all -latest -property installationPath
+                $vsregedit = Join-Path $installPath 'Common7\IDE\vsregedit.exe'
+                &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
+            }
+            TestScript = { return $False }
+            GetScript = { @{ Result = "" } }
+            DependsOn = "[cChocoPackageInstaller]visualStudio"
+        }
+
 
         CirclePath vsbuild
         {
