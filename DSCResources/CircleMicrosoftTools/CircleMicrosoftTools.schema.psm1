@@ -74,7 +74,15 @@ Configuration CircleMicrosoftTools {
                 $vsWherePath = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
                 $installPath = &$vsWherePath -all -latest -property installationPath
                 $vsregedit = Join-Path $installPath 'Common7\IDE\vsregedit.exe'
+                $statejson = Join-Path $installPath 'Common7\IDE\Extensions\MachineState.json'
                 &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyCheckForUpdates2Override dword 0
+                &$vsregedit set $installPath HKCU ExtensionManager EnableAdminExtensions dword 0
+                &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyUpdateExtensions dword 0
+                &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyCheckForUpdates2 dword 0
+                &$vsregedit set $installPath HKCU ExtensionManager EnableAdminExtensionsOverride dword 0
+                &$vsregedit set $installPath HKCU ExtensionManager AutomaticallyUpdateExtensionsOverride dword 0
+                Set-Content -Path $statejson -Value '{"Extensions":[],"ShouldAutoUpdate":false,"ShouldCheckForUpdates":false}'
+            
             }
             TestScript = { return $False }
             GetScript = { @{ Result = "" } }
@@ -85,6 +93,13 @@ Configuration CircleMicrosoftTools {
         CirclePath vsbuild
         {
             PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin'
+        }
+        Registry DeveloperMode
+        {
+            Key       = "HKEY_LOCAL_MACHINE\Policies\Microsoft\VisualStudio"
+            ValueName = "SQM"
+            ValueType = "DWORD"
+            ValueData = "0"
         }
 
     }
