@@ -52,7 +52,7 @@ Configuration CircleMicrosoftTools {
         {
             Name      = "visualstudio2019community"
             Version   = "16.3.6.0"
-            Params    = "--allWorkloads --includeRecommended --includeOptional --passive --noUpdateInstaller --locale en-US"
+            Params    = "--allWorkloads --includeRecommended --no-update --includeOptional --passive --noUpdateInstaller --locale en-US"
             DependsOn = "[CircleChoco]choco"
         }
         
