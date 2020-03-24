@@ -94,12 +94,14 @@ Configuration CircleMicrosoftTools {
         {
             PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin'
         }
-        Registry DeveloperMode
+        
+        Registry DisableUpdateReg
         {
             Key       = "HKEY_LOCAL_MACHINE\Policies\Microsoft\VisualStudio"
             ValueName = "SQM"
             ValueType = "DWORD"
             ValueData = "0"
+            DependsOn = "[cChocoPackageInstaller]visualStudio"
         }
 
     }
