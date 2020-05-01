@@ -200,6 +200,9 @@ workflows:
       - test-one-module:
           name: TDRTests
           module_name: "CircleTDR"
+      - test-one-module:
+          name: PythonTests
+          module_name: "CirclePython"
       - deploy-module:
           filters:
             branches:
