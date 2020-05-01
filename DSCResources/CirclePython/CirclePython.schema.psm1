@@ -16,12 +16,20 @@ Configuration CirclePython {
     Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
     CircleChoco choco { }
+    
+    File condaDirectory
+    {
+        Ensure = "Present" # Ensure the directory is Present on the target node.
+        Type = "Directory" # The default is File.
+        DestinationPath = "C:\tools\miniconda3"
+    }
 
     cChocoPackageInstaller miniconda3
     {
         Name      = 'miniconda3'
         Params    = '/AddToPath:1'
         Version   = '4.6.14'
+        DependsOn = '[File]condaDirectory'
     }
 
     CirclePath pythonPath {
