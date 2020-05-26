@@ -47,4 +47,12 @@ Configuration CircleUsers {
             Start-Process cmd /c -WindowStyle Hidden -Credential $cred -ErrorAction SilentlyContinue -Wait
         }
     }
+    
+    Registry DisableForceUnload {
+        Ensure = "Present"
+        Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System\"
+        ValueName = "DisableForceUnload"
+        ValueType = "Dword"
+        ValueData = "1"
+    }
 }
