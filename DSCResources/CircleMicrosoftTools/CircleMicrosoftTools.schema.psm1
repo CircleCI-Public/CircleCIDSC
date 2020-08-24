@@ -141,6 +141,20 @@ Configuration CircleMicrosoftTools {
         Name = 'nuget.commandline'
     }
 
+    # This is not under $InstallDotNet as it does not require the machine to restart
+    # Which means it can be tested
+    Script InstallDotNet35
+    {
+        SetScript = {
+            Install-WindowsFeature Net-Framework-Core
+        }
+        TestScript = { 
+            $state = [scriptblock]::Create($GetScript).Invoke()
+            return (($state.Result.Lenght > 0) -And ($state.Result[0].Name == "Net-Framework-Core") -And ($state.Result[0].InstallState == "Installed") )
+         }
+        GetScript = { @{ Result = $(Get-WindowsFeature -Name Net-Framework-Core) } }
+    }
+
     if ($InstallDotNet) {
         # These are last. This is becuase despite my best efforts
         # They inspire the machine to require a reboot
