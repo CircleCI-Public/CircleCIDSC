@@ -150,7 +150,8 @@ Configuration CircleMicrosoftTools {
         }
         TestScript = { 
             $state = [scriptblock]::Create($GetScript).Invoke()
-            return (($state.Result.Lenght > 0) -And ($state.Result[0].Name == "Net-Framework-Core") -And ($state.Result[0].InstallState == "Installed") )
+            Write-Verbose -Message $state.Resul
+            return (($state.Result.Lenght -gt 0) -And ($state.Result[0].Name -eq "Net-Framework-Core") -And ($state.Result[0].InstallState -eq "Installed") )
          }
         GetScript = { @{ Result = $(Get-WindowsFeature -Name Net-Framework-Core) } }
     }
