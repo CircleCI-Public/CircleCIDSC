@@ -16,7 +16,9 @@ Configuration CircleBuildAgentPreReq {
         Name      = @(
             "git-lfs"
             "7zip.portable"
-            "gzip")
+            "gzip"
+            "sysinternals"
+        )
         DependsOn = "[cChocoPackageInstaller]installGit"
     }
 }

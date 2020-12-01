@@ -86,7 +86,7 @@ Configuration CircleNode {
                 Write-Verbose "setting $using:Version as Default version"
                 & nvm use $using:Version
                 & nvm on
-                & "C:\ProgramData\nvm\v$using:Version\npm.cmd" install -g yarn
+                & "C:\ProgramData\nvm\v$using:Version\npm.cmd" install --scripts-prepend-node-path true -g yarn
             }
         }
         DependsOn  = '[CirclePath]nvm-symlink-path'

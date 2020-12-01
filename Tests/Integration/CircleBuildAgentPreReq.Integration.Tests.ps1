@@ -91,6 +91,9 @@ try
             It "Has gzip on the path" {
                 (Get-Command -Name 'gzip') | Should -HaveCount 1
             }
+            It "Has PsExec on the path" {
+                (Get-Command -Name 'PsExec64.exe') | Should -HaveCount 1
+            }
         }
     }
     #endregion
