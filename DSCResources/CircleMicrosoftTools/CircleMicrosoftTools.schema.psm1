@@ -150,7 +150,14 @@ Configuration CircleMicrosoftTools {
             Path      = 'https://download.visualstudio.microsoft.com/download/pr/53f250a1-318f-4350-8bda-3c6e49f40e76/e8cbbd98b08edd6222125268166cfc43/dotnet-sdk-3.0.100-win-x64.exe'
             ProductId = '2594A057-CD99-4023-8F19-9D8513EE5446'
             Arguments = '/install /quiet /norestart'
+        }
 
+        Package dotnet-sdk-3-1
+        {
+            Name      = 'Microsoft .NET Core SDK 3.1.406 (x64)'
+            Path      = 'https://download.visualstudio.microsoft.com/download/pr/cc28204e-58d7-4f2e-9539-aad3e71945d9/d4da77c35a04346cc08b0cacbc6611d5/dotnet-sdk-3.1.406-win-x64.exe'
+            ProductId = '894da14d-4e5a-4915-a1b8-bc5db37f77a5'
+            Arguments = '/install /quiet /norestart'
         }
 
         Package dotnet-sdk-4-8
