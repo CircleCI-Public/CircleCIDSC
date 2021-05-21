@@ -20,7 +20,8 @@ Configuration CircleCloudTools {
 
     cChocoPackageInstaller webpicmd
     {
-        Name      = "webpicmd"
+        Name      = "webpi"
+        Version   = "5.1"
         DependsOn = "[CircleChoco]choco"
     }
 
