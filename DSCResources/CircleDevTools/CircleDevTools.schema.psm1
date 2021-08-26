@@ -36,7 +36,7 @@ Configuration CircleDevTools {
     cChocoPackageInstaller go
     {
         Name      = 'golang'
-        Version   = '1.12.7'
+        Version   = '1.17'
         DependsOn = "[CircleChoco]choco"
     }
 
@@ -58,8 +58,8 @@ Configuration CircleDevTools {
         DefaultVersion = $true
     }
 
-    CircleNode "node12" {
-        Version        = '12.11.1'
+    CircleNode "node14" {
+        Version        = '14.17.5'
         DefaultVersion = $true
     }
 
