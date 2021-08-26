@@ -77,7 +77,7 @@ try
                 It "is installed" {
                     $(Get-Command -Name "nvm").Count | Should -Eq 1
                 }
-                It "has node 12 installed and set to default" {
+                It "has node 14 installed and set to default" {
                     $(nvm list)[1] | Should -Match "14.17.5"
                 }
             }
