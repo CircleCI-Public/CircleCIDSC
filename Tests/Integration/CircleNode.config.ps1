@@ -8,7 +8,7 @@ $ConfigurationData = @{
 
 <#
     .SYNOPSIS
-    Installs node 12 as the default version
+    Installs node 14 as the default version
 #>
 Configuration CircleNode_Integration_Config
 {
@@ -18,7 +18,7 @@ Configuration CircleNode_Integration_Config
     {
         CircleNode 'Integration_Test'
         {
-            Version = '12.11.1'
+            Version = '14.17.5'
             DefaultVersion = $true
         }
     }
