@@ -36,7 +36,7 @@ Configuration CircleDevTools {
     cChocoPackageInstaller go
     {
         Name      = 'golang'
-        Version   = '1.17'
+        Version   = '1.17.0'
         DependsOn = "[CircleChoco]choco"
     }
 
