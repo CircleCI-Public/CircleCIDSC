@@ -33,6 +33,13 @@ Configuration CircleMicrosoftTools {
         DependsOn = "[CircleChoco]choco"
     }
 
+    cChocoPackageInstaller netcore-sdk5-0
+    {
+        Name      = "dotnet-5.0-sdk"
+        Version   = "5.0.401"
+        DependsOn = "[CircleChoco]choco"
+    }
+
     cChocoPackageInstaller windowssdk-10-0
     {
         Name      = "windows-sdk-10.0"
