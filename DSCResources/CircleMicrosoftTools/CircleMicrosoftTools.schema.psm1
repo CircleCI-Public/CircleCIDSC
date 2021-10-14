@@ -58,7 +58,7 @@ Configuration CircleMicrosoftTools {
         cChocoPackageInstaller visualStudio
         {
             Name      = "visualstudio2019community"
-            Version   = "16.3.6.0"
+            Version   = "16.11.4.0"
             Params    = "--allWorkloads --includeRecommended --no-update --includeOptional --passive --noUpdateInstaller --locale en-US"
             DependsOn = "[CircleChoco]choco"
         }
@@ -71,7 +71,7 @@ Configuration CircleMicrosoftTools {
         cChocoPackageInstaller visualstudiobuildtools
         {
             Name      = "visualstudio2019buildtools"
-            Version   = "16.3.6.0"
+            Version   = "16.11.4.0"
             DependsOn = "[CircleChoco]choco"
         }
         
