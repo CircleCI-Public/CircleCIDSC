@@ -25,7 +25,7 @@ Configuration CirclePython_Integration_Config
         CirclePython 'Integration_Test'
         {
             EnvName        = 'python3'
-            Version        = '3.7'
+            Version        = '3.9'
             DefaultVersion = $true
         }
     }

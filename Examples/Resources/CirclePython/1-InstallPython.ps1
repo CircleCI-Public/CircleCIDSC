@@ -1,6 +1,6 @@
 <#
     .DESCRIPTION
-        Install python 3.7 using conda and set it to default
+        Install python 3.9 using conda and set it to default
 #>
 Configuration Example
 {
@@ -8,10 +8,10 @@ Configuration Example
 
     node $AllNodes.NodeName
     {
-        CirclePython 'Python3.7'
+        CirclePython 'Python3.9'
         {
             EnvName        = 'python3'
-            Version        = '3.7'
+            Version        = '3.9'
             DefaultVersion = $true
         }
     }
