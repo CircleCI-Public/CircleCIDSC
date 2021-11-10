@@ -74,6 +74,14 @@ Configuration CircleMicrosoftTools {
             Version   = "16.11.4.0"
             DependsOn = "[CircleChoco]choco"
         }
+
+        cChocoPackageInstaller sqlserverexpress
+        {
+            Name      = "sql-server-express"
+            Version   = "2019.20200409"
+            Params    = "-o -ia "'/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=FALSE /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3'" -f -y"
+            DependsOn = "[CircleChoco]choco"
+        }
         
         Script DisableUpdates
         {
