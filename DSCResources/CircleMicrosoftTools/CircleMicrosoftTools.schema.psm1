@@ -30,8 +30,7 @@ Configuration CircleMicrosoftTools {
         Name      = "sql-server-express"
         Ensure    = 'Present'
         Version   = "2019.20200409"
-        Params    = "-o -ia --cachelocation c:\tmp\choco '/IACCEPTSQLSERVERLICENSETERMS /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=FALSE /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3'"
-        DependsOn = "[CircleChoco]choco"
+        Params    = "--cachelocation c:\tmp"
     }
 
 
