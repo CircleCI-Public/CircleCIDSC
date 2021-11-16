@@ -69,6 +69,8 @@ try
                 }
             }
 
+            Write-Host ("resource current state: $resourceCurrentState")
+
             Update-Paths
 
             It 'Should return $true when Test-DscConfiguration is run' {
