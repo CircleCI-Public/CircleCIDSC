@@ -74,7 +74,7 @@ try
             Update-Paths
 
             It 'Should return $true when Test-DscConfiguration is run' {
-                Test-DscConfiguration -Verbose -Detailed| Should -Be 'True'
+                Test-DscConfiguration -Verbose | Should -Be 'True'
             }
 
             Describe "The Windows sdk" {
