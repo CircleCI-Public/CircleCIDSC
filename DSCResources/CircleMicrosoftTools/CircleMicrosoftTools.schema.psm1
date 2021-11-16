@@ -174,13 +174,12 @@ Configuration CircleMicrosoftTools {
             ProductId = "949C0535-171C-480F-9CF4-D25C9E60FE88"
             Arguments = '/install /quiet /norestart'
         }
-
-        Package sql-server-express-2019
+    }
+    Package sql-server-express-2019
         {
             Name      = 'Microsoft Sql Server Express 2019'
             Path      = "https://go.microsoft.com/fwlink/?linkid=866658/SQL2019-SSEI-Expr.exe"
             ProductId = "0FB552DD-543E-48E7-A6F4-2F8D82723C6A"
             Arguments = '/ACTION=INSTALL /IACCEPTSQLSERVERLICENSETERMS /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3 /QUIET'
         }
-    }
 }
