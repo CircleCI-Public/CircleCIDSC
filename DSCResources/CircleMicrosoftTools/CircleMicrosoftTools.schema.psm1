@@ -59,7 +59,7 @@ Configuration CircleMicrosoftTools {
         Ensure               = 'Present'
         DependsOn            = '[CircleChoco]choco'
         PsDscRunAsCredential = $Node.Credential
-        Params               = "--cache-location=C:\Tmp"
+        Params               = "--cachelocation c:\tools"
     }
 
     if ($InstallVS) {
