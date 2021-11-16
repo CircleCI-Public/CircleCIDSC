@@ -58,8 +58,6 @@ Configuration CircleMicrosoftTools {
         Name                 = 'sql-server-express'
         Ensure               = 'Present'
         DependsOn            = '[CircleChoco]choco'
-        PsDscRunAsCredential = $Node.Credential
-        Params               = "--cache-location=c:\tools"
     }
 
     if ($InstallVS) {

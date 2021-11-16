@@ -82,6 +82,8 @@ jobs:
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
+            [Environment]::SetEnvironmentVariable("TEMP", 'c:\tmp', 'Machine')
+            [Environment]::SetEnvironmentVariable("TMP", 'c:\tmp', 'Machine')
             $env:CONFIGURATION='Integration'
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
