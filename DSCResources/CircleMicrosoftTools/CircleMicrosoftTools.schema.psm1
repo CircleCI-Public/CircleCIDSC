@@ -30,7 +30,7 @@ Configuration CircleMicrosoftTools {
         Name      = "sql-server-express"
         Ensure    = 'Present'
         Version   = "2019.20200409"
-        Params    = "--cachelocation=c:\tmp"
+        Params    = "-c='c:\tmp\'"
     }
 
 
