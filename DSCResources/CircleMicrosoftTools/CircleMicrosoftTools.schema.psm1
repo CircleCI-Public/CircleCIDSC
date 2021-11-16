@@ -57,8 +57,19 @@ Configuration CircleMicrosoftTools {
     cChocoPackageInstaller installSQLExpress {
         Name                 = 'sql-server-express'
         Ensure               = 'Present'
+        Version              = "2019.20200409"
+        Params               = "-o -ia /ACTION=INSTALL /IACCEPTSQLSERVERLICENSETERMS /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3 /QUIET"
         DependsOn            = '[CircleChoco]choco'
     }
+
+    cChocoPackageInstaller installSQLManagementStudio {
+        Name                 = 'sql-server-management-studio'
+        Ensure               = 'Present'
+        Version              = "18.10 15.0.18390.0"
+        DependsOn            = '[CircleChoco]choco'
+    }
+
+    # choco install sql-server-management-studio
 
     if ($InstallVS) {
         cChocoPackageInstaller visualStudio
