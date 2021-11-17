@@ -58,7 +58,7 @@ Configuration CircleMicrosoftTools {
         Name                 = 'sql-server-express'
         Ensure               = 'Present'
         Version              = "2019.20200409"
-        Params               = "-o -ia /ACTION=INSTALL /IACCEPTSQLSERVERLICENSETERMS /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3 /QUIET"
+        Params               = "-o -ia ""'/ACTION=INSTALL /IACCEPTSQLSERVERLICENSETERMS /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=FALSE /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3 /QUIET'"""
         DependsOn            = '[CircleChoco]choco'
     }
 
