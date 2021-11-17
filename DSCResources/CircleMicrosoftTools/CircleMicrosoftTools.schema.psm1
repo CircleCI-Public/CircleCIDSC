@@ -65,7 +65,6 @@ Configuration CircleMicrosoftTools {
     cChocoPackageInstaller installSQLManagementStudio {
         Name                 = 'sql-server-management-studio'
         Ensure               = 'Present'
-        Version              = "18.9.2 15.0.18386.0"
         DependsOn            = '[CircleChoco]choco'
     }
 
