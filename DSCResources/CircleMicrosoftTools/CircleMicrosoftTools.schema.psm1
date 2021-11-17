@@ -57,7 +57,6 @@ Configuration CircleMicrosoftTools {
     cChocoPackageInstaller installSQLExpress {
         Name                 = 'sql-server-2019'
         Ensure               = 'Present'
-        Version              = "15.0.2000.20210324"
         Params               = "/ACTION:INSTALL /IACCEPTSQLSERVERLICENSETERMS /INSTANCEID:MSSQLSERVER /INSTANCENAME:MSSQLSERVER /UPDATEENABLED:FALSE /SECURITYMODE:SQL /SAPWD:r22rbf8*PUHjqzb3 /QUIET"
         DependsOn            = '[CircleChoco]choco'
     }
