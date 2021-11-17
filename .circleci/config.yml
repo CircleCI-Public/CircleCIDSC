@@ -143,6 +143,8 @@ jobs:
           name: after test scripts
           shell: powershell.exe
           command: |
+            [Environment]::SetEnvironmentVariable("TEMP", 'c:\windows\temp', 'Machine')
+            [Environment]::SetEnvironmentVariable("TMP", 'c:\windows\temp', 'Machine')
             $ProgressPreference = "SilentlyContinue"
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
