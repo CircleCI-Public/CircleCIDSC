@@ -84,6 +84,7 @@ jobs:
             $env:APPVEYOR=$true
             [Environment]::SetEnvironmentVariable("TEMP", 'c:\tmp\modules', 'Machine')
             [Environment]::SetEnvironmentVariable("TMP", 'c:\tmp\modules', 'Machine')
+            [Environment]::SetEnvironmentVariable("_JAVA_OPTIONS", '–Xmx512M', 'Machine')
             $env:CONFIGURATION='Integration'
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
