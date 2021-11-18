@@ -25,6 +25,7 @@ Configuration CircleMicrosoftTools {
         DependsOn = "[CircleChoco]choco"
     }
 
+
     cChocoPackageInstaller netcore-sdk2-2
     {
         Name      = "dotnetcore-sdk"
@@ -53,6 +54,20 @@ Configuration CircleMicrosoftTools {
         DependsOn = "[CircleChoco]choco"
     }
 
+    cChocoPackageInstaller installSQLExpress {
+        Name                 = 'sql-server-2019'
+        Ensure               = 'Present'
+        Params               = "/ACTION:INSTALL /IACCEPTSQLSERVERLICENSETERMS /IgnorePendingReboot /SQLSYSADMINACCOUNTS:$env:COMPUTERNAME\\circleci /INSTANCEID:MSSQLSERVER /INSTANCENAME:MSSQLSERVER /UPDATEENABLED:FALSE /SECURITYMODE:SQL /SAPWD:r22rbf8*PUHjqzb3 /QUIET"
+        DependsOn            = '[CircleChoco]choco'
+    }
+
+    cChocoPackageInstaller installSQLManagementStudio {
+        Name                 = 'sql-server-management-studio'
+        Ensure               = 'Present'
+        DependsOn            = '[CircleChoco]choco'
+    }
+
+    # choco install sql-server-management-studio
 
     if ($InstallVS) {
         cChocoPackageInstaller visualStudio
@@ -173,14 +188,6 @@ Configuration CircleMicrosoftTools {
             Path      = "https://download.visualstudio.microsoft.com/download/pr/014120d7-d689-4305-befd-3cb711108212/0307177e14752e359fde5423ab583e43/ndp48-devpack-enu.exe"
             ProductId = "949C0535-171C-480F-9CF4-D25C9E60FE88"
             Arguments = '/install /quiet /norestart'
-        }
-
-        Package sql-server-express-2019
-        {
-            Name      = 'Microsoft Sql Server Express 2019'
-            Path      = "https://go.microsoft.com/fwlink/?linkid=866658/SQL2019-SSEI-Expr.exe"
-            ProductId = "0FB552DD-543E-48E7-A6F4-2F8D82723C6A"
-            Arguments = '/ACTION=INSTALL /IACCEPTSQLSERVERLICENSETERMS /SECURITYMODE=SQL /SAPWD=r22rbf8*PUHjqzb3 /QUIET'
         }
     }
 }

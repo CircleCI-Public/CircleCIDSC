@@ -82,6 +82,9 @@ jobs:
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR=$true
+            [Environment]::SetEnvironmentVariable("TEMP", 'c:\tmp\modules', 'Machine')
+            [Environment]::SetEnvironmentVariable("TMP", 'c:\tmp\modules', 'Machine')
+            [Environment]::SetEnvironmentVariable("_JAVA_OPTIONS", '–Xmx512M', 'Machine')
             $env:CONFIGURATION='Integration'
             $moduleName = "CircleCIDSC"
             import-module ..\DscResource.Tests\AppVeyor.psm1
@@ -141,6 +144,8 @@ jobs:
           name: after test scripts
           shell: powershell.exe
           command: |
+            [Environment]::SetEnvironmentVariable("TEMP", 'c:\windows\temp', 'Machine')
+            [Environment]::SetEnvironmentVariable("TMP", 'c:\windows\temp', 'Machine')
             $ProgressPreference = "SilentlyContinue"
             Import-Module -Name "..\DscResource.Tests\AppVeyor.psm1"
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
