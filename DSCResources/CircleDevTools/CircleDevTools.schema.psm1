@@ -73,6 +73,6 @@ Configuration CircleDevTools {
     }
 
     CirclePath 'goPath' {
-        PathItem = 'C:\Go\bin'
+        PathItem = 'C:\Program Files\Go\bin'
     }
 }
