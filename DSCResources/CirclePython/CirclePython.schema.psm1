@@ -29,6 +29,9 @@ Configuration CirclePython {
         DependsOn = '[cChocoPackageInstaller]miniconda3'
     }
 
+    CirclePath 'openJDKPath' {
+        PathItem = "C:\Program Files\OpenJDK\jdk-12.0.2\bin"
+    }
 
     # Name gets set to "installedPythons" becuase powershell
     Script $EnvName {
