@@ -15,6 +15,11 @@ Configuration CirclePython {
 
     Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
+    $mypath = $MyInvocation.MyCommand.Path
+    $currentScriptDir = Split-Path $mypath -Parent
+
+    Import-Module -Name (Join-Path -Path $currentScriptDir -ChildPath '..\..\Tests\TestHelpers\CommonTestHelper.psm1')
+
     CircleChoco choco { }
 
     cChocoPackageInstaller miniconda3
