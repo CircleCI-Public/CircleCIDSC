@@ -5,6 +5,12 @@ $script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
 Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
 
+$mypath = $MyInvocation.MyCommand.Path
+$currentScriptDir = Split-Path $mypath -Parent
+
+Import-Module -Name (Join-Path -Path $currentScriptDir -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+Remove-ItemFromPath 'C:\Go\bin'
+
 #region HEADER
 # Integration Test Template Version: 1.3.3
 [String] $script:moduleRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
