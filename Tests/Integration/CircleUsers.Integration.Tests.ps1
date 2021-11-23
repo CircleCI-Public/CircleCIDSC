@@ -3,13 +3,6 @@ param()
 
 Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
 
-$mypath = $MyInvocation.MyCommand.Path
-$currentScriptDir = Split-Path $mypath -Parent
-Write-Output "Current script dir is: $currentScriptDir"
-
-Import-Module -Name (Join-Path -Path $currentScriptDir -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
-Remove-ItemFromPath 'C:\Go\bin'
-
 $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleUsers'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
