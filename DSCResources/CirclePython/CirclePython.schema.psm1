@@ -33,6 +33,10 @@ Configuration CirclePython {
         PathItem = "C:\Program Files\OpenJDK\jdk-12.0.2\bin"
     }
 
+    Remove-ItemFromPath 'C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot\bin'
+    Remove-ItemFromPath 'C:\Go\bin'
+  
+
     # Name gets set to "installedPythons" becuase powershell
     Script $EnvName {
         GetScript  = {
