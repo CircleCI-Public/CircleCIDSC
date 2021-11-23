@@ -2,7 +2,6 @@ $script:dscModuleName = 'CircleCIDSC'
 $script:dscResourceFriendlyName = 'CircleMicrosoftTools'
 $script:dscResourceName = "$($script:dscResourceFriendlyName)"
 
-
 Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
 
 #region HEADER

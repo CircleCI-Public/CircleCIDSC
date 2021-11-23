@@ -15,10 +15,10 @@ Configuration CirclePython {
 
     Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
-    $mypath = $MyInvocation.MyCommand.Path
-    $currentScriptDir = Split-Path $mypath -Parent
+    $currentScriptDir = Join-Path -Path $PSScriptRoot -ChildPath '..\..\Tests\TestHelpers\CommonTestHelper.psm1'
+    Write-Output "script is: $currentScriptDir"
 
-    Import-Module -Name (Join-Path -Path $currentScriptDir -ChildPath '..\..\Tests\TestHelpers\CommonTestHelper.psm1')
+    Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\..\Tests\TestHelpers\CommonTestHelper.psm1')
 
     CircleChoco choco { }
 
