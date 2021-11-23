@@ -20,6 +20,26 @@ function Update-Paths {
     }
 }
 
+function Remove-ItemFromPath {
+    [CmdletBinding()]
+    param (
+        #The item to remove from the path
+        [Parameter(Mandatory)]
+        [String] $PathItem
+    )
+    $path = [System.Environment]::GetEnvironmentVariable(
+        'PATH',
+        'User'
+    )
+    # Remove unwanted elements
+    $path = ($path.Split(';') | Where-Object { $_.TrimEnd('\') -ne $PathItem }) -join ';'
+    # Set the path
+    [System.Environment]::SetEnvironmentVariable(
+        'PATH',
+        $path,
+        'User'
+    )  
+}
 
 <#
     .SYNOPSIS
