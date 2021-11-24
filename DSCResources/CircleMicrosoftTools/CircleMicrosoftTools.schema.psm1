@@ -61,14 +61,6 @@ Configuration CircleMicrosoftTools {
         DependsOn            = '[CircleChoco]choco'
     }
 
-    cChocoPackageInstaller installSQLManagementStudio {
-        Name                 = 'sql-server-management-studio'
-        Ensure               = 'Present'
-        DependsOn            = '[CircleChoco]choco'
-    }
-
-    # choco install sql-server-management-studio
-
     if ($InstallVS) {
         cChocoPackageInstaller visualStudio
         {
