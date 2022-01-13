@@ -158,7 +158,7 @@ jobs:
           shell: powershell.exe
           command: |
             $ProgressPreference = "SilentlyContinue"
-            $gallery_api = $psgkey
+            $gallery_api = $ccipsgkey
             $env:APPVEYOR_BUILD_FOLDER="C:\Users\circleci\CircleCIDSC"
             $env:APPVEYOR_REPO_NAME="CircleCI/CircleCIDSC"
             $env:APPVEYOR_BUILD_VERSION="1.0.$env:CIRCLE_BUILD_NUM"
@@ -169,7 +169,7 @@ jobs:
             import-module .\CircleCIDSC
             cd ..
             cp -r CircleCIDSC 'C:\Program Files\WindowsPowerShell\Modules\CircleCIDSC'
-            Publish-Module -Name CircleCIDSC -NuGetApiKey $env:psgkey
+            Publish-Module -Name CircleCIDSC -NuGetApiKey $env:ccipsgkey
 
 
 
