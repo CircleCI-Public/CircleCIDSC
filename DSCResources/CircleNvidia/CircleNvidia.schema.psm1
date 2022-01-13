@@ -3,7 +3,7 @@ Configuration CircleNvidia {
 
     cChocoPackageInstaller installNvidia {
         Name = 'cuda'
-        Version = '10.1.243'
+        Version = '11.5.0.49613'
         Source = 'chocolatey'
     }
     
