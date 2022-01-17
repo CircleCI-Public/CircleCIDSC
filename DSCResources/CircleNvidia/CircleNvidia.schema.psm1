@@ -6,6 +6,10 @@ Configuration CircleNvidia {
         Version = '11.5.0.49613'
         Source = 'chocolatey'
     }
+
+    Write-Output "CUDA INSTALL LOG:"
+    Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+    Write-Output "END CUDA INSTALL LOG:"
     
     Script InstallCudnn {
         GetScript = {
