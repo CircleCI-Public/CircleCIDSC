@@ -17,9 +17,9 @@ Configuration CircleNvidia {
         }
 
         TestScript = {
-            return ($(Test-Path -Path 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin\cudnn64_7.dll') `
-              -and $(Test-Path -Path 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include\cudnn.h') `
-              -and $(Test-Path -Path 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\lib\x64\cudnn.lib'))
+            return ($(Test-Path -Path 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\cudnn64_7.dll') `
+              -and $(Test-Path -Path 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include\cudnn.h') `
+              -and $(Test-Path -Path 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\lib\x64\cudnn.lib'))
         }
 
         SetScript = {
@@ -28,9 +28,9 @@ Configuration CircleNvidia {
             (New-Object System.Net.WebClient).DownloadFile($url, $output)
             Expand-Archive -Path $output -DestinationPath C:\cudnn
             
-            cp C:\cudnn\cuda\bin\cudnn64_7.dll 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin'
-            cp C:\cudnn\cuda\include\cudnn.h 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include'
-            cp C:\cudnn\cuda\lib\x64\cudnn.lib 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\lib\x64'
+            cp C:\cudnn\cuda\bin\cudnn64_7.dll 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin'
+            cp C:\cudnn\cuda\include\cudnn.h 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include'
+            cp C:\cudnn\cuda\lib\x64\cudnn.lib 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\lib\x64'
         }
 
         DependsOn = "[cChocoPackageInstaller]installNvidia"
