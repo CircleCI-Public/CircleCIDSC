@@ -1,6 +1,8 @@
 Configuration CircleNvidia {
     Import-DscResource -Module cChoco
 
+    # cuda 11 requires reboot, will address in next release
+
     cChocoPackageInstaller installNvidia {
         Name = 'cuda'
         Version = '10.1.243'
