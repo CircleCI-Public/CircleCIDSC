@@ -54,7 +54,7 @@ Configuration CircleDevTools {
 
     CirclePython "python3" {
         EnvName        = 'python3'
-        Version        = '3.7'
+        Version        = '3.9'
         DefaultVersion = $true
     }
 
