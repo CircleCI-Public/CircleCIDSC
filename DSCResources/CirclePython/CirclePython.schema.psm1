@@ -29,6 +29,12 @@ Configuration CirclePython {
         Version   = '4.6.14'
     }
 
+    cChocoPackageInstaller pyenv
+    {
+        Name      = 'pyenv-win'
+        Version   = '2.64.11'
+    }
+
     CirclePath pythonPath {
         PathItem = "C:\miniconda3\miniconda3\condabin"
         DependsOn = '[cChocoPackageInstaller]miniconda3'
