@@ -14,7 +14,7 @@ Configuration CircleCloudTools {
     cChocoPackageInstaller azure-cli
     {
         Name      = "azure-cli"
-        Version   = "2.0.70"
+        Version   = "2.40.0"
         DependsOn = "[CircleChoco]choco"
     }
 
