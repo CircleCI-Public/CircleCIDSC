@@ -29,14 +29,14 @@ Configuration CircleMicrosoftTools {
     cChocoPackageInstaller netcore-sdk2-2
     {
         Name      = "dotnetcore-sdk"
-        Version   = "2.2.401"
+        Version   = "3.1.426"
         DependsOn = "[CircleChoco]choco"
     }
 
     cChocoPackageInstaller netcore-sdk5-0
     {
         Name      = "dotnet-5.0-sdk"
-        Version   = "5.0.401"
+        Version   = "5.0.408"
         DependsOn = "[CircleChoco]choco"
     }
 
@@ -65,7 +65,7 @@ Configuration CircleMicrosoftTools {
         cChocoPackageInstaller visualStudio
         {
             Name      = "visualstudio2019community"
-            Version   = "16.11.9.0"
+            Version   = "16.11.23.0"
             Params    = "--allWorkloads --includeRecommended --no-update --includeOptional --passive --noUpdateInstaller --locale en-US"
             DependsOn = "[CircleChoco]choco"
         }
@@ -78,7 +78,7 @@ Configuration CircleMicrosoftTools {
         cChocoPackageInstaller visualstudiobuildtools
         {
             Name      = "visualstudio2019buildtools"
-            Version   = "16.11.9.0"
+            Version   = "16.11.23.0"
             DependsOn = "[CircleChoco]choco"
         }
         

@@ -8,21 +8,21 @@ Configuration CircleDevTools {
     cChocoPackageInstaller nunit
     {
         Name      = "nunit-console-runner"
-        Version   = "3.10.0"
+        Version   = "3.16.2"
         DependsOn = "[CircleChoco]choco"
     }
 
     cChocoPackageInstaller nano
     {
         Name      = 'nano'
-        Version   = "2.5.3"
+        Version   = "7.2.14"
         DependsOn = "[CircleChoco]choco"
     }
 
     cChocoPackageInstaller vim
     {
         Name      = 'vim'
-        Version   = "8.0.604"
+        Version   = "9.0.1221"
         DependsOn = "[CircleChoco]choco"
     }
 
@@ -36,14 +36,14 @@ Configuration CircleDevTools {
     cChocoPackageInstaller go
     {
         Name      = 'golang'
-        Version   = '1.17.6'
+        Version   = '1.20.1'
         DependsOn = "[CircleChoco]choco"
     }
 
     cChocoPackageInstaller java
     {
         Name      = 'openjdk'
-        Version   = '12.0.2'
+        Version   = '19.0.2'
         DependsOn = '[CircleChoco]choco'
     }
 
@@ -54,22 +54,22 @@ Configuration CircleDevTools {
 
     CirclePython "python3" {
         EnvName        = 'python3'
-        Version        = '3.9'
+        Version        = '3.11'
         DefaultVersion = $true
     }
 
     CircleNode "node14" {
-        Version        = '14.17.5'
+        Version        = '14.21.3'
         DefaultVersion = $true
     }
 
     cChocoPackageInstaller ruby {
         Name    = 'ruby'
-        Version = '2.6.3.1'
+        Version = '3.1.3.1'
     }
 
     CirclePath 'rubyPath' {
-        PathItem = 'C:\tools\ruby26'
+        PathItem = 'C:\tools\ruby31'
     }
 
     CirclePath 'goPath' {
