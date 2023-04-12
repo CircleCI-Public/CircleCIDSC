@@ -26,13 +26,13 @@ Configuration CirclePython {
     {
         Name      = 'miniconda3'
         Params    = '/AddToPath:1'
-        Version   = '4.6.14'
+        Version   = '4.12.0'
     }
 
     cChocoPackageInstaller pyenv
     {
         Name      = 'pyenv-win'
-        Version   = '2.64.11'
+        Version   = '3.1.1'
     }
 
     CirclePath pythonPath {

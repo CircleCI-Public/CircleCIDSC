@@ -16,7 +16,7 @@ Configuration CircleNode {
     cChocoPackageInstaller nvm-portable
     {
         Name      = 'nvm.portable'
-        Version   = '1.1.7'
+        Version   = '1.1.9'
         DependsOn = '[CircleChoco]choco'
     }
 
