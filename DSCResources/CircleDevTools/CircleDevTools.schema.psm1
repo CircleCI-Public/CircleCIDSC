@@ -36,14 +36,14 @@ Configuration CircleDevTools {
     cChocoPackageInstaller go
     {
         Name      = 'golang'
-        Version   = '1.20.3'
+        Version   = '1.20.5'
         DependsOn = "[CircleChoco]choco"
     }
 
     cChocoPackageInstaller java
     {
         Name      = 'openjdk'
-        Version   = '20.0.0'
+        Version   = '20.0.1'
         DependsOn = '[CircleChoco]choco'
     }
 
@@ -54,7 +54,7 @@ Configuration CircleDevTools {
 
     CirclePython "python3" {
         EnvName        = 'python3'
-        Version        = '3.11.3'
+        Version        = '3.11.4'
         DefaultVersion = $true
     }
 
