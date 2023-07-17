@@ -58,8 +58,8 @@ Configuration CircleDevTools {
         DefaultVersion = $true
     }
 
-    CircleNode "node14" {
-        Version        = '14.21.3'
+    CircleNode "nodejs" {
+        Version        = '18.16.1'
         DefaultVersion = $true
     }
 
