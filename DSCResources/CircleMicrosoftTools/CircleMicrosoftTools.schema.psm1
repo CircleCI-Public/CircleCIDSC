@@ -13,7 +13,12 @@ Configuration CircleMicrosoftTools {
         $InstallWinAppDriver=$True
     )
 
-
+    $Win2022=$False
+    $osVersion = [System.Environment]::OSVersion.Version.Build
+    if($osVersion -gt 20000) {
+        $Win2022=$True
+    }
+    
     Import-DscResource -Module CircleCIDSC
     Import-DscResource -Module cChoco
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
@@ -30,6 +35,18 @@ Configuration CircleMicrosoftTools {
     {
         Name      = "dotnetcore-sdk"
         Version   = "3.1.426"
+        DependsOn = "[CircleChoco]choco"
+    }
+    cChocoPackageInstaller dotnet-6.0-sdk
+    {
+        Name      = "dotnet-6.0-sdk"
+        Version   = "6.0.417"
+        DependsOn = "[CircleChoco]choco"
+    }
+    cChocoPackageInstaller ndotnet-7.0-sdk
+    {
+        Name      = "dotnet-7.0-sdk"
+        Version   = "7.0.404"
         DependsOn = "[CircleChoco]choco"
     }
 
@@ -53,33 +70,69 @@ Configuration CircleMicrosoftTools {
         Version   = "10.1.18362.1"
         DependsOn = "[CircleChoco]choco"
     }
-
-    cChocoPackageInstaller installSQLExpress {
-        Name                 = 'sql-server-2019'
-        Ensure               = 'Present'
-        Params               = "/ACTION:INSTALL /IACCEPTSQLSERVERLICENSETERMS /IgnorePendingReboot /SQLSYSADMINACCOUNTS:$env:COMPUTERNAME\\circleci /INSTANCEID:MSSQLSERVER /INSTANCENAME:MSSQLSERVER /UPDATEENABLED:FALSE /SECURITYMODE:SQL /SAPWD:r22rbf8*PUHjqzb3 /QUIET"
-        DependsOn            = '[CircleChoco]choco'
+    if ($Win2022) {
+        cChocoPackageInstaller installSQLExpress {
+            Name                 = 'sql-server-2022'
+            Ensure               = 'Present'
+            Params               = "/ACTION:INSTALL /IACCEPTSQLSERVERLICENSETERMS /IgnorePendingReboot /SQLSYSADMINACCOUNTS:$env:COMPUTERNAME\\circleci /INSTANCEID:MSSQLSERVER /INSTANCENAME:MSSQLSERVER /UPDATEENABLED:FALSE /SECURITYMODE:SQL /SAPWD:r22rbf8*PUHjqzb3 /QUIET"
+            DependsOn            = '[CircleChoco]choco'
+        }
+    }
+    else {
+        cChocoPackageInstaller installSQLExpress {
+            Name                 = 'sql-server-2019'
+            Ensure               = 'Present'
+            Params               = "/ACTION:INSTALL /IACCEPTSQLSERVERLICENSETERMS /IgnorePendingReboot /SQLSYSADMINACCOUNTS:$env:COMPUTERNAME\\circleci /INSTANCEID:MSSQLSERVER /INSTANCENAME:MSSQLSERVER /UPDATEENABLED:FALSE /SECURITYMODE:SQL /SAPWD:r22rbf8*PUHjqzb3 /QUIET"
+            DependsOn            = '[CircleChoco]choco'
+        }
     }
 
     if ($InstallVS) {
-        cChocoPackageInstaller visualStudio
-        {
-            Name      = "visualstudio2019community"
-            Version   = "16.11.27.0"
-            Params    = "--allWorkloads --includeRecommended --no-update --includeOptional --passive --noUpdateInstaller --locale en-US"
-            DependsOn = "[CircleChoco]choco"
+        if ($Win2022) {
+            cChocoPackageInstaller visualStudio
+            {
+                Name      = "visualstudio2019community"
+                Version   = "16.11.32.0"
+                Params    = "--allWorkloads --includeRecommended --no-update --includeOptional --passive --noUpdateInstaller --locale en-US"
+                DependsOn = "[CircleChoco]choco"
+            }
+
+            cChocoPackageInstaller visualstudiobuildtools
+            {
+                Name      = "visualstudio2019buildtools"
+                Version   = "16.11.32.0"
+                DependsOn = "[CircleChoco]choco"
+            }
+
+            CirclePath vsbuild
+            {
+                PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin'
+            }
         }
-        
+        else {
+            cChocoPackageInstaller visualStudio
+            {
+                Name      = "visualstudio2022community"
+                Version   = "117.8.3.0"
+                Params    = "--allWorkloads --includeRecommended --no-update --includeOptional --passive --noUpdateInstaller --locale en-US"
+                DependsOn = "[CircleChoco]choco"
+            }
+
+            cChocoPackageInstaller visualstudiobuildtools
+            {
+                Name      = "visualstudio2022buildtools"
+                Version   = "117.8.3.0"
+                DependsOn = "[CircleChoco]choco"
+            }
+
+            CirclePath vsbuild
+            {
+                PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin'
+            }
+        }
         circlePath vswhere
         {
             PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\'
-        }
-
-        cChocoPackageInstaller visualstudiobuildtools
-        {
-            Name      = "visualstudio2019buildtools"
-            Version   = "16.11.27.0"
-            DependsOn = "[CircleChoco]choco"
         }
         
         Script DisableUpdates
@@ -101,12 +154,6 @@ Configuration CircleMicrosoftTools {
             TestScript = { return $False }
             GetScript = { @{ Result = "" } }
             DependsOn = "[cChocoPackageInstaller]visualStudio"
-        }
-
-
-        CirclePath vsbuild
-        {
-            PathItem = 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin'
         }
         
         Registry DisableUpdateReg
