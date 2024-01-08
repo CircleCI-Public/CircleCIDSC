@@ -205,7 +205,4 @@ workflows:
       - test-one-module:
           name: TDRTests
           module_name: "CircleTDR"
-      - deploy-module:
-          filters:
-            branches:
-              only: main
+      - deploy-module
