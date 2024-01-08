@@ -7,14 +7,14 @@ Configuration CircleCloudTools {
     cChocoPackageInstaller awscli
     {
         Name      = "awscli"
-        Version   = "1.16.209"
+        Version   = "2.15.8"
         DependsOn = "[CircleChoco]choco"
     }
 
     cChocoPackageInstaller azure-cli
     {
         Name      = "azure-cli"
-        Version   = "2.0.70"
+        Version   = "2.55.0"
         DependsOn = "[CircleChoco]choco"
     }
 

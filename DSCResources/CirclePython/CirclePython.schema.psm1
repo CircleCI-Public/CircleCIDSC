@@ -41,7 +41,7 @@ Configuration CirclePython {
     }
 
     CirclePath 'openJDKPath' {
-        PathItem = "C:\Program Files\OpenJDK\jdk-12.0.2\bin"
+        PathItem = "C:\Program Files\OpenJDK\jdk-21.0.1\bin"
     }
 
     Remove-ItemFromPath 'C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot\bin'
